@@ -7,11 +7,21 @@ using namespace std;
 #define cyr cout<<"YES"<<endl; return ;
 #define cnr cout<<"NO"<<endl; return ;
 #define vll vector<ll>
-#define sort(x) srt(begin(x),end(x))
+#define srt(x) sort(begin(x),end(x))
 #define vi vector<int>
 #define rev(x) reverse(begin(x),end(x))
 #define printarr(arr) for(int i=0;i<arr.size();i++)cout<<arr[i]<<" ";
 #define sortr(x) sort(rbegin(x),rend(x))
+#define vpll vector<pair<ll,ll>>
+
+bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
+    if(p1.first==p2.first){
+        return p1.second>p2.second;
+    }
+    else {
+        return p1.first<p2.first;
+    }
+}
 void FindPrime(){
     vector<bool>Prime(3001,1);
     Prime[0]=0;
@@ -35,28 +45,40 @@ int sumOfDigit(int n){
 int lcm(int a,int b){
     return a*b/__gcd(a,b);
 }
+
+/* ===============BoilerPlate code end=========== */
+/*====================You can Do it man!!====================*/
+/*=================Think a bit more=============*/
+// author -arifakhtar
+
+bool check(ll n){
+    ll temp=n;
+    while(temp){
+        ll ele=temp%10;
+        if(ele!=0){
+            if(n%ele!=0)return 0;
+        }
+        temp/=10;
+    }
+    return 1;
+}
 void solve(){
     ll n;
     cin>>n;
-    if(n==2||n==4){
-        cn;
-        return ;
+    while(1){
+        if(check(n)){
+            cout<<n<<" ";cl;return ;
+        }
+        n++;
+        if(n>=1e18+1)break;
     }
-    if(n&1){
-        cy;
-        return ;
-    }
-    if(!(n&(n-1))){
-        cn;
-    }
-    else cy;
 }
 int main(){
+
     int t;
     // cout<<string(3,'1');
     cin>>t;
     while(t--){
         solve();
     }
-    return 0;
 }
