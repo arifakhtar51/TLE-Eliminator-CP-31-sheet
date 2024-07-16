@@ -1,2 +1,1 @@
-f(marked[j-1]=='0')continue;
-                    // marked[j-1]='0';
+ans.push_back(i+2);

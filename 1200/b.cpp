@@ -44,9 +44,6 @@
             }
         }
     }
-
-        
-
     bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
         if(p1.first==p2.first){
             return p1.second>p2.second;
@@ -127,14 +124,7 @@ bool isPalin(vll &arr){
         
         ll n;
         cin>>n;
-        if(n==2){
-            cout<<2<<" ";cl;return ;
-        }
-        if(n==3){
-            cout<<3<<" ";cl;return ;
-        }
-
-        cout<<2;cl;
+        vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
     
 
 

@@ -121,37 +121,17 @@ bool isPalin(vll &arr){
     return 1;
 }
     void solve(){
-        
-        ll x1,x2;
-        ll y1,y2;
-        cin>>x1>>x2;
-        cin>>y1>>y2;
-        if(x1==y1 && x2==y2){
-            cy;return ;
-        }
-        
-        if(x1<x2){
-            ll x=x2-x1;
-            if(x1+x<=y1){
-                cn;
-            }
-            else {
-                cy;
-            }
-        }
-        else {
-            ll x=x1-x2;
-            if(x2+x<=y2){
-                cn;
-            }
-            else {
-                cy;
-            }
-        }
+        ll n;
+        cin>>n;
+        vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
 
-    
-
-
+        map<ll,ll>mp;
+        ll ans=0;
+        for(ll i=0;i<n;i++){
+            ans+=mp[arr[i]-i];
+            mp[arr[i]-i]++;
+        }
+        cout<<ans;cl;
     }
     int main(){
         IOS

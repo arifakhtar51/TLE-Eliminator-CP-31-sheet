@@ -105,32 +105,31 @@ int lcm(int a,int b){return a*b/__gcd(a,b);}
 
 vector <int> Z_Function (string s) {
         
-        //z[i] represent length of longest substr starting at ithat is prefix of s
-        // str=pattern+'@' +s
-        // and apply z function over str 
-        // q) How many more char need to append in s to make s palindrome
-        //  str=rev(s)+'@' +s;
         int N = s.length();
+        
         vector <int> Z(N, 0);
+        
         int left = 0, right = 0;
+        
         for (int i=1; i < N; ++i) {
+            
             if (i < right) 
                 Z[i] = min(right - i, Z[i-left]);
+            
             while ((i + Z[i] < N) and (s[Z[i]] == s[i + Z[i]]))
                 Z[i]++;
+            
             if (i + Z[i] > right) {
+                
                 left = i;
                 right = i + Z[i];
             }
         }
+        
+        
         return Z;
     }
 
-
-int log_a_to_base_b(int a, int b)
-{
-    return log2(a) / log2(b);
-}
 
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
@@ -145,12 +144,69 @@ while(i<j){
 }
 return 1;
 }
+
+ll log_a_to_base_b(ll a, ll b)
+{
+    return log2(a) / log2(b);
+}
+
+bool isPos(vll &arr,ll n,ll mid,ll x,ll k){
+    ll grp=1;
+    ll sm=0;
+    for(ll i=1;i<n;i++){
+        if(arr[i]-arr[i-1]>x){
+            ll diff=(arr[i]-arr[i-1]);
+            sm+=diff;
+            // if(diff>(2.0)*x || k==0){
+            //     grp++;
+            // }
+            // else{
+            //     k--;
+            // }
+            grp++;
+        }
+    }
+    if(grp==0)grp=1;
+    ll temp=log_a_to_base_b(sm,k);
+    cout<<"temp="<<temp;cl;
+    cout<<"sm="<<sm;cl;
+    grp-=temp;
+    if(grp<=mid){
+        return 1;
+    }
+    return 0;
+    
+
+}
 void solve(){
     
-    ll n;
-    cin>>n;
+    ll n,k,x;
+    cin>>n>>k>>x;
     vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
-
+    srt(arr);
+    vll temp;
+    for(ll i=1;i<n;i++){
+    
+            ll diff=(arr[i]-arr[i-1]);
+            if(diff>x)
+            temp.push_back(diff);
+    }
+    srt(temp);
+    rev(temp);
+    ll t=0;
+    // printarr(temp);
+    if(temp.size()==0){
+        cout<<1<<" ";cl;return ;    
+    }
+    for(ll i=temp.size()-1;i>=0;i--){
+        ll y=(temp[i]-1)/x;
+        if(y <=k){
+            k-=(temp[i]-1)/x;
+            t++;
+        }
+    }
+    
+    cout<<(temp.size()+1-t);cl;
 
 
 }
@@ -162,7 +218,7 @@ int main(){
     #endif
     int t=1;
     // cout<<string(3,'1');
-    cin>>t;
+    // cin>>t;
     while(t--){
 
         solve();

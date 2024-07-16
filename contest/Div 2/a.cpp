@@ -105,24 +105,28 @@ int lcm(int a,int b){return a*b/__gcd(a,b);}
 
 vector <int> Z_Function (string s) {
         
-        //z[i] represent length of longest substr starting at ithat is prefix of s
-        // str=pattern+'@' +s
-        // and apply z function over str 
-        // q) How many more char need to append in s to make s palindrome
-        //  str=rev(s)+'@' +s;
         int N = s.length();
+        
         vector <int> Z(N, 0);
+        
         int left = 0, right = 0;
+        
         for (int i=1; i < N; ++i) {
+            
             if (i < right) 
                 Z[i] = min(right - i, Z[i-left]);
+            
             while ((i + Z[i] < N) and (s[Z[i]] == s[i + Z[i]]))
                 Z[i]++;
+            
             if (i + Z[i] > right) {
+                
                 left = i;
                 right = i + Z[i];
             }
         }
+        
+        
         return Z;
     }
 
@@ -147,9 +151,20 @@ return 1;
 }
 void solve(){
     
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    ll n,k;
+    cin>>n>>k;
+    if(n==1){
+        cout<<0;cl;return ;
+    }
+    ll t=1;
+    ll ans=0;
+    while(t<n){
+        t+=k-1;
+        ans++;
+    }
+    cout<<ans;cl;
+
+    
 
 
 

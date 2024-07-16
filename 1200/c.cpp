@@ -44,9 +44,6 @@
             }
         }
     }
-
-        
-
     bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
         if(p1.first==p2.first){
             return p1.second>p2.second;
@@ -123,39 +120,14 @@ bool isPalin(vll &arr){
     }
     return 1;
 }
-ll sol(vll &arr,ll n,ll i, ll sm){
-    if(i>=n){
-        return 0;
-    }
-    ll maxi=max(sm+arr[i]+sol(arr,n,i+1,sm+arr[i]),abs(sm+arr[i])+sol(arr,n,i+1,abs(sm+arr[i])));
-    return maxi;
-
-}
     void solve(){
         
         ll n;
         cin>>n;
         vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
-        set<ll>st;
-        ll curr=arr[0];
-        ll ans=0;
-        if(curr==0){
-            ans++;
-        }
-        st.insert(arr[0]);
-        for(ll i=1;i<n;i++){
-            curr+=arr[i];
-            st.insert(arr[i]);
-            auto it = st.rbegin();
-            ll back=*it;
-            if(curr-back==back){
-                ans++;
-            }
-
-        }
-        cout<<ans;cl;
-
     
+
+
     }
     int main(){
         IOS

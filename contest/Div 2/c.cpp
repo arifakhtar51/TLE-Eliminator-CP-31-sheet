@@ -105,24 +105,28 @@ int lcm(int a,int b){return a*b/__gcd(a,b);}
 
 vector <int> Z_Function (string s) {
         
-        //z[i] represent length of longest substr starting at ithat is prefix of s
-        // str=pattern+'@' +s
-        // and apply z function over str 
-        // q) How many more char need to append in s to make s palindrome
-        //  str=rev(s)+'@' +s;
         int N = s.length();
+        
         vector <int> Z(N, 0);
+        
         int left = 0, right = 0;
+        
         for (int i=1; i < N; ++i) {
+            
             if (i < right) 
                 Z[i] = min(right - i, Z[i-left]);
+            
             while ((i + Z[i] < N) and (s[Z[i]] == s[i + Z[i]]))
                 Z[i]++;
+            
             if (i + Z[i] > right) {
+                
                 left = i;
                 right = i + Z[i];
             }
         }
+        
+        
         return Z;
     }
 
@@ -145,28 +149,99 @@ while(i<j){
 }
 return 1;
 }
-void solve(){
-    
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    ll findEle(vll &tt,ll pos){
+        ll n=tt.size();
+        bool flag=0;
+        for(int i=0;i<n;i++){
+            if(tt[i]==1)    
+                pos--;
+            if(pos==0){
+                tt[i]=0;
+                flag=1;
+                break;
+            }
+            
+        }
+        if(flag==0){
+            return -1;
+        }
+        ll ele=0;
+        for(int i=0;i<n;i++){
+            if(tt[i]==1){
+                ele+=pow(2,i);
+            }
+        }
+        return ele;
+    }
+    void solve(){
+        
+        ll n;
+        cin>>n;
+        // vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+        // n=14;
+        if(n==1){
+            cout<<1<<"\n";
+            cout<<1<<" \n";return ;
+        }
+        if(n==2){
+            cout<<1<<"\n";
+            cout<<"2";cl;
+            return ;
+        }
+        // if(n==3){
+        //     cout<<3<<"\n";
+        //     cout<<"1 2 3"<<" \n";return ;
+        // }
+        vll ar(63,0);
+        vll ans;
 
+        int j=0;
+            while(j<63){
+                ar[j]+=((n>>j)&1)?1:0;
+                j++;
+            }
+        
+        // printarr(ar);
+        ans.push_back(n);
+        ll cnt=0;
+        ll setBit=0;
+        for(auto i:ar){
+            if(i==1)setBit++;
+        }
+        cnt=1;
+        setBit--;
+        while(setBit>=0){
+            vll tt=ar;
+            ll ele=findEle(tt,cnt);
+            if(ele!=-1 && ele!=0)
+            ans.push_back(ele);
+            cnt++;
+            setBit--;
 
+        }
+        // rev(ans);
+        srt(ans);
+        cout<<ans.size();cl;
+        printarr(ans);
+        cl;
+        // for(int i=0;i<ans.size()-1;i++){
+        //     cout<<(ans[i]|ans[i+1])<<" ";
+        // }
+        // cl;
+    }
+    int main(){
+        IOS
+        #ifndef ONLINE_JUDGE
+        freopen("input.txt","r",stdin);
+        freopen("output.txt","w",stdout);
+        #endif
+        int t=1;
+        // cout<<string(3,'1');
+        cin>>t;
+        while(t--){
 
-}
-int main(){
-    IOS
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-    #endif
-    int t=1;
-    // cout<<string(3,'1');
-    cin>>t;
-    while(t--){
+            solve();
 
-        solve();
+        }
 
     }
-
-}

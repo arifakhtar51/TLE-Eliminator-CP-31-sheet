@@ -120,38 +120,56 @@ bool isPalin(vll &arr){
     }
     return 1;
 }
+vector<vll> rotateMatrix(vector<vll>arr){
+  int n=arr.size();
+    for(int i=0;i<=n-2;i++){
+        for(int j=i+1;j<=n-1;j++){
+            swap(arr[i][j],arr[j][i]);
+           
+        }
+    }
+    for(auto &i:arr){
+        reverse(begin(i),end(i));
+    }
+    return arr;
+
+}
     void solve(){
         
-        ll x1,x2;
-        ll y1,y2;
-        cin>>x1>>x2;
-        cin>>y1>>y2;
-        if(x1==y1 && x2==y2){
-            cy;return ;
+        ll n;
+        cin>>n;
+        // vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+        vector<vll>arr(n,vll(n,0));
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                char ch;
+                cin>>ch;
+                arr[i][j]=ch-'0';
+            }
         }
+
+        auto a90=rotateMatrix(arr);
+        auto a180=rotateMatrix(a90);
+        auto a270=rotateMatrix(a180);
         
-        if(x1<x2){
-            ll x=x2-x1;
-            if(x1+x<=y1){
-                cn;
-            }
-            else {
-                cy;
+        
+         ll ans=0;
+        for(int i=0;i<(n+1)/2;i++){
+            for(int j=0;j<n/2;j++){
+                ll cnt0=0,cnt1=0;
+                if(arr[i][j]==0)cnt0++;
+                else cnt1++;
+                if(a180[i][j]==0)cnt0++;
+                else cnt1++;
+                if(a90[i][j]==0)cnt0++;
+                else cnt1++;
+                if(a270[i][j]==0)cnt0++;
+                else cnt1++;
+                    ans+=min(cnt0,cnt1);
+                
             }
         }
-        else {
-            ll x=x1-x2;
-            if(x2+x<=y2){
-                cn;
-            }
-            else {
-                cy;
-            }
-        }
-
-    
-
-
+        cout<<ans;cl;
     }
     int main(){
         IOS
