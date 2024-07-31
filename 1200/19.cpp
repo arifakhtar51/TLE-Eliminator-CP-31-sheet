@@ -122,35 +122,64 @@ bool isPalin(vll &arr){
 }
     void solve(){
         
-        ll x1,x2;
-        ll y1,y2;
-        cin>>x1>>x2;
-        cin>>y1>>y2;
-        if(x1==y1 && x2==y2){
-            cy;return ;
+        ll n;
+        char c;
+        cin>>n>>c;
+        string s;
+        cin>>s;
+        ll cnt=0;
+        int odd=0,even=0;
+        ll in =-1;
+        for(int i=0;i<n;i++){
+            if(s[i]==c){cnt++;
+            in=i;}
+            if(s[i]!=c){
+                if((i+1)%2==0)even=1;
+                else odd=1;
+            }
+
+
+        }
+        if(cnt==n){
+            cout<<0;cl;return ;
+        }
+        if(cnt==0){
+            cout<<2;cl;cout<<n<<" "<<n-1;cl;return ;
+        }
+        if(s[n-1]==c){
+            cout<<1<<" ";cl;
+            cout<<n<<" ";cl;return ;
+        }
+        if(in>=n/2){
+            cout<<1;
+            cl;
+            cout<<in+1<<" ";cl;
+            return ;
+        }
+        cout<<2;cl;cout<<n<<" "<<n-1;cl;return ;
+        
+        if(odd==1){
+            if(n%2==0){
+                cout<<1;cl;
+                cout<<n<<"";cl;return ;
+            }
+            else{
+                cout<<1;cl;
+                cout<<n-1<<"";cl;return ;
+
+            }
+        }
+        if(even==1){
+            if(n%2!=0){
+                cout<<1;cl;
+                cout<<n<<"";cl;return ;
+            }
+            else{
+                cout<<1;cl;
+                cout<<n-1<<"";cl;return ;
+            }
         }
         
-        if(x1<x2){
-            ll x=x2-x1;
-            if(x1+x<=y1){
-                cn;
-            }
-            else {
-                cy;
-            }
-        }
-        else {
-            ll x=x1-x2;
-            if(x2+x<=y2){
-                cn;
-            }
-            else {
-                cy;
-            }
-        }
-
-    
-
 
     }
     int main(){
@@ -162,8 +191,10 @@ bool isPalin(vll &arr){
         int t=1;
         // cout<<string(3,'1');
         cin>>t;
+        ll cnt=1;
         while(t--){
-
+            // cout<<cnt<<"<- ";cl;
+            // cnt++;
             solve();
 
         }

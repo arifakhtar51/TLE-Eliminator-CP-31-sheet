@@ -105,7 +105,6 @@ int lcm(int a,int b){return a*b/__gcd(a,b);}
 
 vector <int> Z_Function (string s) {
         
-<<<<<<< HEAD
         int N = s.length();
         
         vector <int> Z(N, 0);
@@ -122,39 +121,15 @@ vector <int> Z_Function (string s) {
             
             if (i + Z[i] > right) {
                 
-=======
-        //z[i] represent length of longest substr starting at ithat is prefix of s
-        // str=pattern+'@' +s
-        // and apply z function over str 
-        // q) How many more char need to append in s to make s palindrome
-        //  str=rev(s)+'@' +s;
-        int N = s.length();
-        vector <int> Z(N, 0);
-        int left = 0, right = 0;
-        for (int i=1; i < N; ++i) {
-            if (i < right) 
-                Z[i] = min(right - i, Z[i-left]);
-            while ((i + Z[i] < N) and (s[Z[i]] == s[i + Z[i]]))
-                Z[i]++;
-            if (i + Z[i] > right) {
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
                 left = i;
                 right = i + Z[i];
             }
         }
-<<<<<<< HEAD
         
         
-=======
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
         return Z;
     }
 
-
-int log_a_to_base_b(int a, int b)
-{
-    return log2(a) / log2(b);
-}
 
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
@@ -169,95 +144,70 @@ while(i<j){
 }
 return 1;
 }
-<<<<<<< HEAD
-    ll findEle(vll &tt,ll pos){
-        ll n=tt.size();
-        bool flag=0;
-        for(int i=0;i<n;i++){
-            if(tt[i]==1)    
-                pos--;
-            if(pos==0){
-                tt[i]=0;
-                flag=1;
-                break;
-            }
-            
+
+ll log_a_to_base_b(ll a, ll b)
+{
+    return log2(a) / log2(b);
+}
+
+bool isPos(vll &arr,ll n,ll mid,ll x,ll k){
+    ll grp=1;
+    ll sm=0;
+    for(ll i=1;i<n;i++){
+        if(arr[i]-arr[i-1]>x){
+            ll diff=(arr[i]-arr[i-1]);
+            sm+=diff;
+            // if(diff>(2.0)*x || k==0){
+            //     grp++;
+            // }
+            // else{
+            //     k--;
+            // }
+            grp++;
         }
-        if(flag==0){
-            return -1;
-        }
-        ll ele=0;
-        for(int i=0;i<n;i++){
-            if(tt[i]==1){
-                ele+=pow(2,i);
-            }
-        }
-        return ele;
     }
-    void solve(){
-        
-        ll n;
-        cin>>n;
-        // vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
-        // n=14;
-        if(n==1){
-            cout<<1<<"\n";
-            cout<<1<<" \n";return ;
-        }
-        if(n==2){
-            cout<<1<<"\n";
-            cout<<"2";cl;
-            return ;
-        }
-        // if(n==3){
-        //     cout<<3<<"\n";
-        //     cout<<"1 2 3"<<" \n";return ;
-        // }
-        vll ar(63,0);
-        vll ans;
-=======
+    if(grp==0)grp=1;
+    ll temp=log_a_to_base_b(sm,k);
+    cout<<"temp="<<temp;cl;
+    cout<<"sm="<<sm;cl;
+    grp-=temp;
+    if(grp<=mid){
+        return 1;
+    }
+    return 0;
+    
+
+}
 void solve(){
     
-    ll n;
-    cin>>n;
+    ll n,k,x;
+    cin>>n>>k>>x;
     vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
-
-        int j=0;
-            while(j<63){
-                ar[j]+=((n>>j)&1)?1:0;
-                j++;
-            }
-        
-        // printarr(ar);
-        ans.push_back(n);
-        ll cnt=0;
-        ll setBit=0;
-        for(auto i:ar){
-            if(i==1)setBit++;
+    srt(arr);
+    vll temp;
+    for(ll i=1;i<n;i++){
+    
+            ll diff=(arr[i]-arr[i-1]);
+            if(diff>x)
+            temp.push_back(diff);
+    }
+    srt(temp);
+    rev(temp);
+    ll t=0;
+    // printarr(temp);
+    if(temp.size()==0){
+        cout<<1<<" ";cl;return ;    
+    }
+    for(ll i=temp.size()-1;i>=0;i--){
+        ll y=(temp[i]-1)/x;
+        if(y <=k){
+            k-=(temp[i]-1)/x;
+            t++;
         }
-        cnt=1;
-        setBit--;
-        while(setBit>=0){
-            vll tt=ar;
-            ll ele=findEle(tt,cnt);
-            if(ele!=-1 && ele!=0)
-            ans.push_back(ele);
-            cnt++;
-            setBit--;
+    }
+    
+    cout<<(temp.size()+1-t);cl;
 
-<<<<<<< HEAD
-        }
-        // rev(ans);
-        srt(ans);
-        cout<<ans.size();cl;
-        printarr(ans);
-        cl;
-        // for(int i=0;i<ans.size()-1;i++){
-        //     cout<<(ans[i]|ans[i+1])<<" ";
-        // }
-        // cl;
-=======
 
 }
 int main(){
@@ -268,12 +218,11 @@ int main(){
     #endif
     int t=1;
     // cout<<string(3,'1');
-    cin>>t;
+    // cin>>t;
     while(t--){
 
         solve();
 
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
     }
 
 }

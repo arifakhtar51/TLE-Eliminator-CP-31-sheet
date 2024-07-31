@@ -105,7 +105,6 @@ int lcm(int a,int b){return a*b/__gcd(a,b);}
 
 vector <int> Z_Function (string s) {
         
-<<<<<<< HEAD
         int N = s.length();
         
         vector <int> Z(N, 0);
@@ -122,31 +121,12 @@ vector <int> Z_Function (string s) {
             
             if (i + Z[i] > right) {
                 
-=======
-        //z[i] represent length of longest substr starting at ithat is prefix of s
-        // str=pattern+'@' +s
-        // and apply z function over str 
-        // q) How many more char need to append in s to make s palindrome
-        //  str=rev(s)+'@' +s;
-        int N = s.length();
-        vector <int> Z(N, 0);
-        int left = 0, right = 0;
-        for (int i=1; i < N; ++i) {
-            if (i < right) 
-                Z[i] = min(right - i, Z[i-left]);
-            while ((i + Z[i] < N) and (s[Z[i]] == s[i + Z[i]]))
-                Z[i]++;
-            if (i + Z[i] > right) {
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
                 left = i;
                 right = i + Z[i];
             }
         }
-<<<<<<< HEAD
         
         
-=======
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
         return Z;
     }
 
@@ -169,96 +149,64 @@ while(i<j){
 }
 return 1;
 }
-<<<<<<< HEAD
-    ll findEle(vll &tt,ll pos){
-        ll n=tt.size();
-        bool flag=0;
-        for(int i=0;i<n;i++){
-            if(tt[i]==1)    
-                pos--;
-            if(pos==0){
-                tt[i]=0;
-                flag=1;
-                break;
-            }
-            
-        }
-        if(flag==0){
-            return -1;
-        }
-        ll ele=0;
-        for(int i=0;i<n;i++){
-            if(tt[i]==1){
-                ele+=pow(2,i);
+bool CheckBits(vector<int>&temp1,vector<int>&temp2){
+    for(int i=0;i<32;i++){
+        if(temp1[i]>0){
+            if(temp2[i]==0){
+                return 0;
             }
         }
-        return ele;
     }
-    void solve(){
-        
-        ll n;
-        cin>>n;
-        // vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
-        // n=14;
-        if(n==1){
-            cout<<1<<"\n";
-            cout<<1<<" \n";return ;
-        }
-        if(n==2){
-            cout<<1<<"\n";
-            cout<<"2";cl;
-            return ;
-        }
-        // if(n==3){
-        //     cout<<3<<"\n";
-        //     cout<<"1 2 3"<<" \n";return ;
-        // }
-        vll ar(63,0);
-        vll ans;
-=======
+    return 1;
+}
 void solve(){
     
     ll n;
     cin>>n;
     vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
-
-        int j=0;
-            while(j<63){
-                ar[j]+=((n>>j)&1)?1:0;
-                j++;
+    ll x;
+    cin>>x;
+    vpll psm(n);//prefix sum
+    for(int i=0;i<n;i++){
+        psm[i]={arr[i],i};
+        if(i){
+            psm[i]={(psm[i-1].first+arr[i]),i};
+        }
+    }
+    unordered_map<ll,vector<ll>>mp;
+    for(auto ele:psm){
+        mp[ele.first].push_back(ele.second);
+    }
+    mp[0]={-1};
+    bool flag=0;
+    int s=0,e=0;
+    for(ll i=0;i<n;i++){
+        if(mp[psm[i].first-x].size()>=1){
+            if(mp[psm[i].first-x][0]==psm[i].first){
+                // cout<<"yaha for i= "<<i;cl;
+                if(mp[psm[i].first-x].size()>=2){
+                        s=mp[psm[i].first-x][0];
+                        e=i;
+                        flag=1;break;
+                }
+                else continue;
             }
-        
-        // printarr(ar);
-        ans.push_back(n);
-        ll cnt=0;
-        ll setBit=0;
-        for(auto i:ar){
-            if(i==1)setBit++;
+            else{
+                    s=mp[psm[i].first-x][0];
+                    e=i;
+                    flag=1;break;
+            }
         }
-        cnt=1;
-        setBit--;
-        while(setBit>=0){
-            vll tt=ar;
-            ll ele=findEle(tt,cnt);
-            if(ele!=-1 && ele!=0)
-            ans.push_back(ele);
-            cnt++;
-            setBit--;
-
-<<<<<<< HEAD
-        }
-        // rev(ans);
-        srt(ans);
-        cout<<ans.size();cl;
-        printarr(ans);
-        cl;
-        // for(int i=0;i<ans.size()-1;i++){
-        //     cout<<(ans[i]|ans[i+1])<<" ";
-        // }
-        // cl;
-=======
-
+    }
+    if(flag==0){
+        cout<<-1;cl;return ;
+    }
+    
+    vector<int>ans(n,0);
+    for(int i=s+1;i<=e;i++){
+        ans[i]=arr[i];
+    }
+    printarr(ans);cl;
 }
 int main(){
     IOS
@@ -266,14 +214,15 @@ int main(){
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
     #endif
-    int t=1;
-    // cout<<string(3,'1');
-    cin>>t;
-    while(t--){
+    // int t=1;
+    // // cout<<string(3,'1');
+    // cin>>t;
+    // while(t--){
 
-        solve();
+    //     solve();
 
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
-    }
+    // }
+    cout<<(4 ^ 9);cl;
+    cout<<(2^5^7);
 
 }

@@ -122,36 +122,53 @@ bool isPalin(vll &arr){
 }
     void solve(){
         
-        ll x1,x2;
-        ll y1,y2;
-        cin>>x1>>x2;
-        cin>>y1>>y2;
-        if(x1==y1 && x2==y2){
-            cy;return ;
+        ll n,k;
+        cin>>n>>k;
+        vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+        ll sm=0;
+        // sm=accumulate(begin(arr),end(arr),0ll);
+        for(auto i:arr){
+            sm+=i;
         }
+        // cout<<sm<<" ";cl;
+        if(k>sm){
+            cout<<-1;cl;return ;
+        }
+        if(k==sm){
+            cout<<0;cl;return ;
+        }
+
+        vll pref=prefixSum(arr);
+        rev(arr);
+        vll suff=prefixSum(arr);
+        rev(arr);
+        ll target=sm-k;
+
+        // rev(suff);
+        // printarr(pref)
+        // cl;
+        // printarr(suff);cl;
+
+        ll mini=INT_MAX;
+        for(ll i=0;i<n;i++){
+            ll temp=target-pref[i];
+            if(temp==0){
+                mini=min(mini,i+1);
+            }
+            else{
+                ll lb=lower_bound(begin(suff),end(suff),temp)-begin(suff);
+                // cout<<lb<<" ";
+                if(pref[i]!=0)
+                mini=min(mini,lb+1+i+1);
+                else{
+                    mini=min(mini,lb+1);
+                }
+            }
+
+        }
+        cout<<mini;cl;
+
         
-        if(x1<x2){
-            ll x=x2-x1;
-            if(x1+x<=y1){
-                cn;
-            }
-            else {
-                cy;
-            }
-        }
-        else {
-            ll x=x1-x2;
-            if(x2+x<=y2){
-                cn;
-            }
-            else {
-                cy;
-            }
-        }
-
-    
-
-
     }
     int main(){
         IOS
@@ -161,9 +178,11 @@ bool isPalin(vll &arr){
         #endif
         int t=1;
         // cout<<string(3,'1');
+        ll cnt=0;
         cin>>t;
         while(t--){
-
+            cnt++;
+            // cout<<"-> "<<cnt;cl;
             solve();
 
         }

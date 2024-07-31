@@ -122,34 +122,53 @@ bool isPalin(vll &arr){
 }
     void solve(){
         
-        ll x1,x2;
-        ll y1,y2;
-        cin>>x1>>x2;
-        cin>>y1>>y2;
-        if(x1==y1 && x2==y2){
-            cy;return ;
-        }
-        
-        if(x1<x2){
-            ll x=x2-x1;
-            if(x1+x<=y1){
-                cn;
+        ll n;
+        cin>>n;
+        vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+        vpll vp;
+        srt(arr);
+        // printarr(arr);cl;
+        for(int i=0;i<n;){
+            ll cnt=0;
+            ll j=i;
+            while(j<n && (arr[j]==arr[i]) ){
+                cnt++;j++;
             }
-            else {
-                cy;
-            }
-        }
-        else {
-            ll x=x1-x2;
-            if(x2+x<=y2){
-                cn;
-            }
-            else {
-                cy;
-            }
+            
+            vp.push_back({arr[i],cnt});
+            // cout<<arr[i]<<" "<<cnt<<" ";cl;
+            i=j;
         }
 
-    
+        srt(vp);
+
+        // for(int  i=0;i<vp.size();i++){
+        //     cout<<vp[i].first<<" "<<vp[i].second<<" ";cl;
+        // }
+
+        ll ans=vp[0].second;
+        // cout<<"ans="<<ans;cl;
+        ll m=vp.size();
+        for(ll i=1;i<m;i++){
+            // cout<<vp[i-1].first<<" -"<<vp[i].first<<" ";cl;
+            ll x=vp[i-1].first;
+            ll y=(vp[i].first);
+            // cout<<"x=="<<x<<" y="<<y;cl;
+            if(x+1==y){
+                // cout<<"yaha"<<" ";cl;
+                if(vp[i].second>vp[i-1].second){
+                    // cout<<"yaha";
+                    ans+=abs(vp[i].second-vp[i-1].second);
+                }
+            }
+            else{
+                ans+=vp[i].second;
+            }
+            // cout<<ans<<" ";
+        }
+        // cl;
+    cout<<ans;
+    cl;
 
 
     }

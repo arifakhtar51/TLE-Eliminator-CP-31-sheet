@@ -122,34 +122,65 @@ bool isPalin(vll &arr){
 }
     void solve(){
         
-        ll x1,x2;
-        ll y1,y2;
-        cin>>x1>>x2;
-        cin>>y1>>y2;
-        if(x1==y1 && x2==y2){
-            cy;return ;
+        ll n,q;
+        cin>>n>>q;
+        vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+        ll sm=0;
+        for(ll i=0;i<n;i++){
+            sm+=arr[i];
         }
-        
-        if(x1<x2){
-            ll x=x2-x1;
-            if(x1+x<=y1){
-                cn;
+        // cout<<sm;cl;
+        map<ll,ll>mp;
+        bool flag=0;
+        ll lastele=0;
+        for(int i=0;i<q;i++){
+            ll t,x,y;
+            cin>>t;
+            if(t==2){
+                cin>>y;
+                mp.clear();
+                cout<<y*n;cl;
+                sm=y*n;
+                flag=1;
+                lastele=y;
+                continue;
             }
-            else {
-                cy;
-            }
-        }
-        else {
-            ll x=x1-x2;
-            if(x2+x<=y2){
-                cn;
-            }
-            else {
-                cy;
-            }
-        }
+            else{
+                cin>>x>>y;
+                
+                if(flag==0){
+                    sm-=arr[x-1];
+                    sm+=y;
+                    arr[x-1]=y;
+                    cout<<sm<<" ";cl;
+                }
+                else{
+                    if(mp[x]>=1){
+                        // cout<<"yaha ->q= "<<q;cl;
+                        // cout<<arr[x-1]<<"<- ";cl;
+                        if(y>arr[x-1]){
+                            sm+=(y-arr[x-1]);
+                        }
+                        else{
+                            sm-=(arr[x-1]-y);
+                        }
+                        cout<<sm<<" ";cl;
 
-    
+                    }
+                    else{
+                        sm-=lastele;
+                        sm+=y;
+                        
+                        arr[x-1]=y;
+                        cout<<sm;cl;
+                        mp[x]=1;
+                    }
+                }
+
+            }
+
+
+        }
 
 
     }
@@ -161,7 +192,7 @@ bool isPalin(vll &arr){
         #endif
         int t=1;
         // cout<<string(3,'1');
-        cin>>t;
+        // cin>>t;
         while(t--){
 
             solve();

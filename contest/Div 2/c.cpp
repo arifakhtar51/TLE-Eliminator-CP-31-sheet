@@ -105,7 +105,6 @@ int lcm(int a,int b){return a*b/__gcd(a,b);}
 
 vector <int> Z_Function (string s) {
         
-<<<<<<< HEAD
         int N = s.length();
         
         vector <int> Z(N, 0);
@@ -122,31 +121,12 @@ vector <int> Z_Function (string s) {
             
             if (i + Z[i] > right) {
                 
-=======
-        //z[i] represent length of longest substr starting at ithat is prefix of s
-        // str=pattern+'@' +s
-        // and apply z function over str 
-        // q) How many more char need to append in s to make s palindrome
-        //  str=rev(s)+'@' +s;
-        int N = s.length();
-        vector <int> Z(N, 0);
-        int left = 0, right = 0;
-        for (int i=1; i < N; ++i) {
-            if (i < right) 
-                Z[i] = min(right - i, Z[i-left]);
-            while ((i + Z[i] < N) and (s[Z[i]] == s[i + Z[i]]))
-                Z[i]++;
-            if (i + Z[i] > right) {
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
                 left = i;
                 right = i + Z[i];
             }
         }
-<<<<<<< HEAD
         
         
-=======
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
         return Z;
     }
 
@@ -169,7 +149,6 @@ while(i<j){
 }
 return 1;
 }
-<<<<<<< HEAD
     ll findEle(vll &tt,ll pos){
         ll n=tt.size();
         bool flag=0;
@@ -215,13 +194,6 @@ return 1;
         // }
         vll ar(63,0);
         vll ans;
-=======
-void solve(){
-    
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
 
         int j=0;
             while(j<63){
@@ -246,7 +218,6 @@ void solve(){
             cnt++;
             setBit--;
 
-<<<<<<< HEAD
         }
         // rev(ans);
         srt(ans);
@@ -257,23 +228,20 @@ void solve(){
         //     cout<<(ans[i]|ans[i+1])<<" ";
         // }
         // cl;
-=======
-
-}
-int main(){
-    IOS
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-    #endif
-    int t=1;
-    // cout<<string(3,'1');
-    cin>>t;
-    while(t--){
-
-        solve();
-
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
     }
+    int main(){
+        IOS
+        #ifndef ONLINE_JUDGE
+        freopen("input.txt","r",stdin);
+        freopen("output.txt","w",stdout);
+        #endif
+        int t=1;
+        // cout<<string(3,'1');
+        cin>>t;
+        while(t--){
 
-}
+            solve();
+
+        }
+
+    }

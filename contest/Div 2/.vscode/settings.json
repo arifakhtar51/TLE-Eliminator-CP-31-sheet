@@ -55,16 +55,5 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "files.associations": {
-    "*.ejs": "html",
-    "iostream": "cpp",
-<<<<<<< HEAD
-    "new": "cpp"
-=======
-    "ostream": "cpp",
-    "initializer_list": "cpp",
-    "valarray": "cpp"
->>>>>>> 958470b7f25f917273b3a39190149b88ccdf3581
-  }
+  "C_Cpp_Runner.msvcSecureNoWarnings": false
 }
