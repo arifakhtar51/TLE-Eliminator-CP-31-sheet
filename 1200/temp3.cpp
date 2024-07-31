@@ -8,7 +8,7 @@
     #define cnr cout<<"NO"<<endl; return ;
     #define vll vector<ll>
     #define srt(x) sort(begin(x),end(x))
-    #define vi vector<int>
+    #define vi vector<int> 
     #define rev(x) reverse(begin(x),end(x))
     #define printarr(arr) for(int i=0;i<arr.size();i++)cout<<arr[i]<<" ";
     #define sortr(x) sort(rbegin(x),rend(x))
@@ -36,7 +36,7 @@
                 if(n/i==i){
                     fact.push_back(i);
                 }
-                else {
+                else {a;
                     fact.push_back(i);
                     fact.push_back(n/i);
 
