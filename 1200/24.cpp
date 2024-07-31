@@ -44,9 +44,6 @@
             }
         }
     }
-
-        
-
     bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
         if(p1.first==p2.first){
             return p1.second>p2.second;
@@ -115,7 +112,7 @@
     /*=================Think a bit more=============*/
     // author -arifakhtar
 
-bool isPalin(vll &arr){
+bool isPalin(string arr){
     int i=0,j=arr.size()-1;
     while(i<j){
         if(arr[i]!=arr[j])return 0;
@@ -123,64 +120,38 @@ bool isPalin(vll &arr){
     }
     return 1;
 }
-ll sol(vll &arr,ll n,ll i, ll sm){
-    if(i>=n){
-        return 0;
-    }
-    ll maxi=max(sm+arr[i]+sol(arr,n,i+1,sm+arr[i]),abs(sm+arr[i])+sol(arr,n,i+1,abs(sm+arr[i])));
-    return maxi;
-
-}
     void solve(){
         
         ll n;
         cin>>n;
-        vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
-        set<ll>st;
-        ll curr=arr[0];
-        ll ans=0;
-        if(curr==0){
-            ans++;
+        // vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+        string s;
+        cin>>s;
+        int z=0,o=0;
+        for(int i=0;i<n;i++){
+            if(s[i]=='0')z++;
+            else o++;
         }
-        st.insert(arr[0]);
-        for(ll i=1;i<n;i++){
-            curr+=arr[i];
-            st.insert(arr[i]);
-            auto it = st.rbegin();
-            ll back=*it;
-            if(curr-back==back){
-                ans++;
+        if(o==n){
+            cout<<"DRAW";cl;return ;
+        }
+        if(z==n){
+            if(z%2!=0){
+                cout<<"ALICE";cl;return ;
             }
-
+            else{
+                    cout<<"BOB";cl;return ;
+            }
         }
-        cout<<ans;cl;
+        if((isPalin(s) && n%2==0)|| ((isPalin(s) && n%2!=0 && z==1))){
+            cout<<"BOB";cl;return ;
+        }
+        else{
+            cout<<"ALICE";cl;
+        }
 
-    
+
     }
-    class A{
-        public:
-        // static int x;
-        double a;
-        char ch;
-        
-        int y;
-        int *ptr;
-        char c;
-        int xx;
-        A(){
-            cout<<"A hu";
-        }
-
-    };
-    class B :public A {
-        public:
-        int a;
-        int b;
-        B(){
-            cout<<"B hu";
-        }
-
-    };
     int main(){
         IOS
         #ifndef ONLINE_JUDGE
@@ -189,16 +160,11 @@ ll sol(vll &arr,ll n,ll i, ll sm){
         #endif
         int t=1;
         // cout<<string(3,'1');
-        // cin>>t;
-        // while(t--){
+        cin>>t;
+        while(t--){
 
-        //     solve();
+            solve();
 
-        // }
-        // int *p=&t;
-        // *p+=1;
-        // cout<<*p<<" ";//2
-        cout<<sizeof(A );//4
-        // B *b=new B();
+        }
 
     }

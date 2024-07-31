@@ -44,9 +44,6 @@
             }
         }
     }
-
-        
-
     bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
         if(p1.first==p2.first){
             return p1.second>p2.second;
@@ -123,64 +120,68 @@ bool isPalin(vll &arr){
     }
     return 1;
 }
-ll sol(vll &arr,ll n,ll i, ll sm){
-    if(i>=n){
-        return 0;
-    }
-    ll maxi=max(sm+arr[i]+sol(arr,n,i+1,sm+arr[i]),abs(sm+arr[i])+sol(arr,n,i+1,abs(sm+arr[i])));
-    return maxi;
-
-}
     void solve(){
         
         ll n;
         cin>>n;
         vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
-        set<ll>st;
-        ll curr=arr[0];
-        ll ans=0;
-        if(curr==0){
-            ans++;
-        }
-        st.insert(arr[0]);
-        for(ll i=1;i<n;i++){
-            curr+=arr[i];
-            st.insert(arr[i]);
-            auto it = st.rbegin();
-            ll back=*it;
-            if(curr-back==back){
-                ans++;
+        if(n==2){
+            
+            if(arr[0]==arr[1]){
+                cn;return ;
             }
+            else{
+                cy;
+                cout<<1<<" "<<2;cl;return ;
+            }
+        }
+        vpll v;
+        for(int i=0;i<n;i++){
+            v.push_back({arr[i],i+1});
+        }
+        srt(v);
+        // printarr(v);
+        int mx=1;
+        int cnt=1;
+        for(int i=0;i<n-1;i++){
+            if(v[i].first==v[i+1].first){
+                cnt++;
+            }
+            else{
+                cnt=1;
+            }
+            mx=max(mx,cnt);
+        }
+        // cout<<mx<<" - ";cl;
+        if(mx==n){
+            cn;return ;
+        }
+        cy;
+        ll data=v[n-1].first;
+        ll d=v[n-1].second;
+        ll ind=-1;
+        for(int i=0;i<n;i++){
+            if(v[i].first==data){
+                ind=i;
+                break;
+            }
+            cout<<d<<" "<<v[i].second;cl;
 
         }
-        cout<<ans;cl;
+        if(ind==-1 || ind==n-1){//all are disctinct
+            return ;
+        }
+        d=v[0].second;
+        for(int i=ind;i<n-1;i++){
+            cout<<d<<" "<<v[i].second;cl;
+        }
 
-    
+
+        // cl;
+
+
+
     }
-    class A{
-        public:
-        // static int x;
-        double a;
-        char ch;
-        
-        int y;
-        int *ptr;
-        char c;
-        int xx;
-        A(){
-            cout<<"A hu";
-        }
-
-    };
-    class B :public A {
-        public:
-        int a;
-        int b;
-        B(){
-            cout<<"B hu";
-        }
-
-    };
     int main(){
         IOS
         #ifndef ONLINE_JUDGE
@@ -189,16 +190,11 @@ ll sol(vll &arr,ll n,ll i, ll sm){
         #endif
         int t=1;
         // cout<<string(3,'1');
-        // cin>>t;
-        // while(t--){
+        cin>>t;
+        while(t--){
 
-        //     solve();
+            solve();
 
-        // }
-        // int *p=&t;
-        // *p+=1;
-        // cout<<*p<<" ";//2
-        cout<<sizeof(A );//4
-        // B *b=new B();
+        }
 
     }

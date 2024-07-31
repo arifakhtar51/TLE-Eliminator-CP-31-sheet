@@ -171,11 +171,23 @@ bool isPalin(vll &arr){
         #endif
         int t=1;
         // cout<<string(3,'1');
-        cin>>t;
-        while(t--){
+        // cin>>t;
+        // while(t--){
 
-            solve();
+        //     solve();
 
-        }
+        // }
+        // vll arr(10,0);
+        // arr.clear();
+        // cout<<arr.size();
+        // int arr[10]={1,2,3,4,5,6};
+        // int *ptr=arr;
+        // cout<<*(ptr+1);24.cpp
+        
+
+        
+
+
+
 
     }

@@ -44,9 +44,6 @@
             }
         }
     }
-
-        
-
     bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
         if(p1.first==p2.first){
             return p1.second>p2.second;
@@ -123,64 +120,72 @@ bool isPalin(vll &arr){
     }
     return 1;
 }
-ll sol(vll &arr,ll n,ll i, ll sm){
-    if(i>=n){
-        return 0;
-    }
-    ll maxi=max(sm+arr[i]+sol(arr,n,i+1,sm+arr[i]),abs(sm+arr[i])+sol(arr,n,i+1,abs(sm+arr[i])));
-    return maxi;
-
-}
     void solve(){
-        
         ll n;
         cin>>n;
-        vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
-        set<ll>st;
-        ll curr=arr[0];
-        ll ans=0;
-        if(curr==0){
-            ans++;
-        }
-        st.insert(arr[0]);
-        for(ll i=1;i<n;i++){
-            curr+=arr[i];
-            st.insert(arr[i]);
-            auto it = st.rbegin();
-            ll back=*it;
-            if(curr-back==back){
-                ans++;
+        string a,b;
+        cin>>a>>b;
+        if(a==b){cy;return ;}
+        vll cnt0(n,0);
+        vll cnt1(n,0);
+        // cnt=0;
+        for(int i=0;i<n;i++){
+            if(i==0){
+                if(a[i]=='0')cnt0[i]=1;
+            }
+            else if(a[i]=='0' && i!=0){
+                cnt0[i]=cnt0[i-1]+1;
+            }
+            else{
+                if(i!=0)
+                 cnt0[i]=cnt0[i-1];
             }
 
         }
-        cout<<ans;cl;
+        for(int i=0;i<n;i++){
+            if(i==0){
+                if(a[i]=='1')cnt1[i]=1;
+            }
+            else if(a[i]=='1' && i!=0){
+                cnt1[i]=cnt1[i-1]+1;
+            }
+            else{
+                if(i!=0)
+                 cnt1[i]=cnt1[i-1];
+            }
 
-    
+        }
+        // printarr(cnt0);cl;
+        // printarr(cnt1);
+        // cl;
+        vector<int>v;
+        for(int i=0;i<n;i++){
+            if(a[i]!=b[i]){
+                v.push_back(i);
+            }
+        }
+        int flip=0;
+        for(int i=n-1;i>=0;i--){
+            
+            int num1=(a[i]-'0');
+            if(flip==1){
+                num1=num1==0?1:0;
+            }
+            int num2=(b[i]-'0');
+            // cout<<num1<<" "<<num2<<" FLIP= "<<flip;cl;
+            if(num1==num2){
+                continue;
+            }
+            if(cnt0[i]==cnt1[i] ){
+                flip=flip==0?1:0;
+            }
+            else{
+                cn;return ;
+            }
+
+        }
+        cy;
     }
-    class A{
-        public:
-        // static int x;
-        double a;
-        char ch;
-        
-        int y;
-        int *ptr;
-        char c;
-        int xx;
-        A(){
-            cout<<"A hu";
-        }
-
-    };
-    class B :public A {
-        public:
-        int a;
-        int b;
-        B(){
-            cout<<"B hu";
-        }
-
-    };
     int main(){
         IOS
         #ifndef ONLINE_JUDGE
@@ -189,16 +194,11 @@ ll sol(vll &arr,ll n,ll i, ll sm){
         #endif
         int t=1;
         // cout<<string(3,'1');
-        // cin>>t;
-        // while(t--){
+        cin>>t;
+        while(t--){
 
-        //     solve();
+            solve();
 
-        // }
-        // int *p=&t;
-        // *p+=1;
-        // cout<<*p<<" ";//2
-        cout<<sizeof(A );//4
-        // B *b=new B();
+        }
 
     }

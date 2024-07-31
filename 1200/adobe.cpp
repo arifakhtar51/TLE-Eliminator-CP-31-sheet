@@ -44,9 +44,6 @@
             }
         }
     }
-
-        
-
     bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
         if(p1.first==p2.first){
             return p1.second>p2.second;
@@ -123,64 +120,77 @@ bool isPalin(vll &arr){
     }
     return 1;
 }
-ll sol(vll &arr,ll n,ll i, ll sm){
-    if(i>=n){
+int sol(int n, vector<int>& time,  vector<int>& start, int k, vector<int>& dp) {
+    if (n == 0) {
         return 0;
     }
-    ll maxi=max(sm+arr[i]+sol(arr,n,i+1,sm+arr[i]),abs(sm+arr[i])+sol(arr,n,i+1,abs(sm+arr[i])));
-    return maxi;
+    if (dp[n] != -1) {
+        return dp[n];
+    }
 
+    int minTime =INT_MAX;
+    if (n - 1 >= 0) {
+        minTime = min(minTime, sol(n - 1, time, start, k, dp) + time[n - 1]);
+    }
+    for (int j = 1; j <= k && n - j >= 0; j++) {
+        minTime = min(minTime, sol(n - j, time, start, k, dp) + start[n - j]);
+    }
+
+    dp[n] = minTime;
+    return dp[n];
+}
+
+ll sol(ll n, vll time, vll start, ll k){
+    // if(i >= n){
+    //     return 0;
+    // }
+    // // if(i==n-1){
+    // //     return min(start[n-1],time[n-1]);
+    // // }
+    // ll j = i ;
+
+    // if(n - i <= k && flag==1){
+    //     j = i + min(k, n - i);
+    //     // cout<<newi<<" ";
+    // }
+    
+    // ll temp = time[i] + sol(n, time, start, k, j+1,0);
+    // ll temp2 = start[i] + sol(n, time, start, k, j+1,1);
+
+    // return min(temp, temp2);
+    vector<ll> dp(n +10,1e6);
+    dp[0] = 0;
+
+    for (int i = 1; i <= n; i++) {
+        dp[i] = dp[i - 1] +time[i - 1];
+
+        for (int j = 1; j <= k && i - j >= 0; j++) {
+            dp[i] = min(dp[i], dp[i - j] + start[i - j]);
+        }
+    }
+
+    return dp[n];
+}
+ll MinTime(ll n,vll time,vll start,ll k){
+        
+        ll ans=sol(n,time,start,k);
+        return ans;
 }
     void solve(){
         
         ll n;
         cin>>n;
-        vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
-        set<ll>st;
-        ll curr=arr[0];
-        ll ans=0;
-        if(curr==0){
-            ans++;
-        }
-        st.insert(arr[0]);
-        for(ll i=1;i<n;i++){
-            curr+=arr[i];
-            st.insert(arr[i]);
-            auto it = st.rbegin();
-            ll back=*it;
-            if(curr-back==back){
-                ans++;
-            }
-
-        }
-        cout<<ans;cl;
-
-    
-    }
-    class A{
-        public:
-        // static int x;
-        double a;
-        char ch;
+        vector<ll>time(n,0);
+        vll start(n,0);
+        for(ll i=0;i<n;i++){cin>>time[i];}
+        for(ll i=0;i<n;i++){cin>>start[i];}
+        ll k;
+        cin>>k;
         
-        int y;
-        int *ptr;
-        char c;
-        int xx;
-        A(){
-            cout<<"A hu";
-        }
 
-    };
-    class B :public A {
-        public:
-        int a;
-        int b;
-        B(){
-            cout<<"B hu";
-        }
+        cout<<MinTime(n,time,start,k)<<" ";
 
-    };
+    }
     int main(){
         IOS
         #ifndef ONLINE_JUDGE
@@ -189,16 +199,11 @@ ll sol(vll &arr,ll n,ll i, ll sm){
         #endif
         int t=1;
         // cout<<string(3,'1');
-        // cin>>t;
-        // while(t--){
+        cin>>t;
+        while(t--){
 
-        //     solve();
+            solve();
 
-        // }
-        // int *p=&t;
-        // *p+=1;
-        // cout<<*p<<" ";//2
-        cout<<sizeof(A );//4
-        // B *b=new B();
+        }
 
     }
