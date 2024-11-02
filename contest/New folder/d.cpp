@@ -102,34 +102,30 @@ ll binpow(ll a, ll b, ll mod) {
     }
 }
 int lcm(int a,int b){return a*b/__gcd(a,b);}
-
-vector <int> Z_Function (string s) {
+vector<int> Z_Function(string s) {
+    int N = s.length();
+    vector<int> Z(N, 0);
+    int left = 0, right = 0;
+    
+    for (int i = 1; i < N; ++i) {
+        if (i < right) 
+            Z[i] = min(right - i, Z[i - left]);
         
-        int N = s.length();
+        while (i + Z[i] < N && s[Z[i]] == s[i + Z[i]])
+            Z[i]++;
         
-        vector <int> Z(N, 0);
-        
-        int left = 0, right = 0;
-        
-        for (int i=1; i < N; ++i) {
-            
-            if (i < right) 
-                Z[i] = min(right - i, Z[i-left]);
-            
-            while ((i + Z[i] < N) and (s[Z[i]] == s[i + Z[i]]))
-                Z[i]++;
-            
-            if (i + Z[i] > right) {
-                
-                left = i;
-                right = i + Z[i];
-            }
+        if (i + Z[i] > right) {
+            left = i;
+            right = i + Z[i];
         }
-        
-        
-        return Z;
     }
-
+    return Z;
+}
+//         //z[i] represent length of longest substr starting at i that is prefix of s
+//         // str=pattern+'@' +s
+//         // and apply z function over str 
+//         // q) How many more char need to append in s to make s palindrome
+//         //  str=rev(s)+'@' +s;
 
 int log_a_to_base_b(int a, int b)
 {
@@ -149,80 +145,63 @@ while(i<j){
 }
 return 1;
 }
-bool CheckBits(vector<int>&temp1,vector<int>&temp2){
-    for(int i=0;i<32;i++){
-        if(temp1[i]>0){
-            if(temp2[i]==0){
-                return 0;
-            }
+void solve(){
+    ll n;
+    cin >> n;  // Input for number of points
+    map<ll, ll> mp, mp2;
+    vector<pair<ll, ll>> vp;
+    map<pair<ll, ll>, ll> cntt;
+
+    // Input all points
+    for(int i = 0; i < n; i++){
+        ll x, y;
+        cin >> x >> y;
+        mp[x]++;        // Count points with same x
+        mp2[y]++;       // Count points with same y
+        vp.push_back({x, y});
+        cntt[{x, y}]++;  // Count occurrences of specific (x, y) pairs
+    }
+
+    ll ans = 0;
+
+    // Iterate over all points
+    for(auto i : vp){
+        ll x = i.first;
+        ll y = i.second;
+
+        ll cnt1 = mp[x] - 1;   // Number of points with same x excluding current
+        ll cnt2 = mp2[y] - 1;  // Number of points with same y excluding current
+
+        ll temp = cnt1 * cnt2; // Potential combinations to form a right triangle
+
+        // Add valid right triangles from cnt1 and cnt2
+        if(temp > 0){
+            ans += temp;
+        }
+
+        // Example of checking geometric conditions (clarify based on problem requirements)
+        if(cntt[{x/2, 0}] > 0 && cntt[{x/2 + x, 0}] > 0){
+            ans++;
+        }
+        if(cntt[{x/2, 1}] > 0 && cntt[{x/2 + x, 1}] > 0){
+            ans++;
         }
     }
-    return 1;
+
+    // Output result for current test case
+    cout << ans << endl;
 }
-bool isSame(vector<int>arr,int x,int y){
-    bool flag=0;
-    int i=0;
-    for(int k=0;k<arr.size();k++){
-        if(arr[k]==x){
-            i=k;break;
-        }
-    }
-    while(i<arr.size()){
-        if(arr[i]==y){
-            flag=1;
-        }
-        i++;
-    }
-    return flag;
-}
-bool solve2(vector<int>arr,int n,vector<int>brr,int m,int x,int y){
-    map<int,int>mp;//stop,ind
-    for(int i=0;i<m;i++){
-        mp[brr[i]]=i;
-    }
-    int i=0;
-    for(int k=0;k<arr.size();k++){
-        if(mp[arr[i]]>=0){
-            i=mp[arr[i]];
-            break;
-        }
-    }
-    while(i<m){
-        if(brr[i]==y){
-            return 1;
-        }
-        i++;
+
+int main(){
+    IOS
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+    int t;
+    cin >> t;
+    while(t--){
+        solve();
     }
     return 0;
-}
-string solve(int n,int m,vector<int>arr,vector<int>brr,int x,int y){
-    if(isSame(arr,x,y) || isSame(brr,x,y)){
-        return "YES";
-    }
-    
-    if(solve2(arr,n,brr,m,x,y)||solve2(brr,m,arr,n,x,y)){
-        return "YES";
-    }
-    else return "NO";
-    
-
-}
-int main(){
-    // IOS
-    // #ifndef ONLINE_JUDGE
-    // freopen("input.txt","r",stdin);
-    // freopen("output.txt","w",stdout);
-    // #endif
-    cout<<solve(5,6,{1,2,3,4,5},{6,7,3,8,9,10},2,9);
-    // int t=1;
-    // // cout<<string(3,'1');
-    // cin>>t;
-    // while(t--){
-
-    //     solve();
-
-    // }
-    // cout<<(4 ^ 9);cl;
-    // cout<<(2^5^7);
-
 }

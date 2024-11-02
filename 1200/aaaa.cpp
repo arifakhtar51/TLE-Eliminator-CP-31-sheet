@@ -182,9 +182,82 @@ return 1;
     
 void solve(){
     
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    ll n,m;
+    cin>>n>>m;
+    vector<string>arr;
+    for(ll i=0;i<m;i++){
+        string s;
+        cin>>s;
+        arr.push_back(s);
+        }
+    // for(auto i:arr){
+    //     cout<<i<<" ";cl;
+    // }
+    // cl;
+    ll ans=0;
+    for(int i=0;i<n;i++){
+        ll cnt0=0,cnt1=0,q=0;
+        for(int j=0;j<m;j++){
+            if(arr[j][i]=='0'){cnt0++;}
+            else if(arr[j][i]=='1'){cnt1++;}
+            else q++;
+        }
+        // cout<<q<<" ";
+        if(q==0){
+            ans+=cnt0*cnt1;
+        }
+        else{
+            if(cnt0==cnt1){
+                if(q%2==0){
+                    cnt0+=q/2;
+                    cnt1+=q/2;
+                }
+                else{
+                    cnt0+=q/2;
+                    cnt1+=(q+1)/2;
+                }
+                ans+=cnt0*cnt1;
+            }
+            else if(cnt0<cnt1){
+                if(cnt1-cnt0>=q){
+                    cnt0+=q;
+                }else{
+                    ll x=cnt1-cnt0;
+                    cnt0+=(x);
+                    q-=x;
+                        if(q%2==0){
+                        cnt0+=q/2;
+                        cnt1+=q/2;
+                    }
+                    else{
+                        cnt0+=q/2;
+                        cnt1+=(q+1)/2;
+                    }
+                    
+                }
+                ans+=cnt0*cnt1;
+            }
+            else{
+                if(cnt0-cnt1>=q){
+                    cnt1+=q;
+                }else{
+                    ll x=cnt0-cnt1;
+                    cnt1+=(x);
+                    q-=x;
+                        if(q%2==0){
+                        cnt0+=q/2;
+                        cnt1+=q/2;
+                    }
+                    else{
+                        cnt0+=q/2;
+                        cnt1+=(q+1)/2;
+                    }
+                    
+                }ans+=cnt0*cnt1;
+            }
+        }
+    }
+    cout<<ans;cl;
 }
 int main(){
     IOS

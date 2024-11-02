@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -93,6 +94,11 @@ void FindPrime(){
             Prime[j]=0;
             j+=i;
         }
+    }
+}
+void printvpll(vpll&vp){
+    for(auto i:vp){
+        cout<<i.first<<" "<<i.second<<" ";cl;
     }
 }
 
@@ -182,9 +188,110 @@ return 1;
     
 void solve(){
     
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+//     string str;
+//     cin>>str;
+//     ll n=str.size();
+//     if(n==1){
+//         cout<<0;cl;return ;
+//     }
+//     vector<int>temp;
+//     ll i=0;
+//     ll parity=0;
+//     ll cnt=0;
+//     string tempo="";
+//     for(int i=0;i<n;i++){
+//         if(i==0){
+//             if(str[i]=='v' && str[i+1]=='v'){
+//                 tempo+='v';
+//                 continue;
+//             }
+//             else continue;
+//         }
+//         if(i==n){
+//             if(str[i]=='v' && str[i-1]=='v'){
+//                 tempo+='v';
+//                 continue;
+//             }
+//             else continue;
+//         }
+//         if(str[i]=='v'){
+//             if(!(str[i-1]==str[i] || str[i+1]==str[i])){
+//                 continue;
+//             }
+//         }
+//         tempo+=str[i];
+//     }
+//     // cout<<tempo<<" ";
+
+//     n=tempo.size();
+    
+//     i=0;
+//     while(i<n && tempo[i]=='o'){
+//         i++;
+//     }
+
+// // cout<<i<<" "<<n<<" ";
+// // cout<<tempo<<" ";cl;
+//     while(i<n){
+//         ll te=0;
+//         ll j=i;
+//         while(j<n){
+//             if(tempo[i]==tempo[j]){
+//                 te++;
+//                 // cout<<tempo[i]<<" "<<tempo[j]<<" "<<i<<" "<<j<<" ";cl;
+//             }
+//             else break;
+//             j++;
+        
+//         }
+        
+//         // cout<<te<<" ";
+//         if(tempo[i]=='v' && te>=2){
+//             temp.push_back(te-1);
+//         }
+//         else if(tempo[i]=='o'){
+//             temp.push_back(te);
+//         }
+//         // j=i+1;
+//         if(i==j)i++;
+//         else 
+//         i=j;
+//     }
+//     if(tempo[n-1]=='o'){
+//         temp.pop_back();
+//     }
+//     // cl;
+//     printarr(temp);cl;
+//     vector<long>pr(temp.size(),0);
+//     pr[0]=temp[0];
+//     ll k=1;
+//     for(int i=2;i<n;i+=2){
+//         pr[k]=pr[k-1]+temp[i];
+//         k++;
+//     }
+//     ll ans=0;
+//     k=0;
+//     for(int i=0;i<n-1;i+=2){
+//         if(k>=pr.size())break;
+//             // cout<<pr[k]<<" "<<temp[i+1]<<" "<<(pr.back()-pr[k])<<" ";cl;
+//         ans+=(pr[k]*temp[i+1]*(pr[pr.size()-1]-pr[k]));
+//         k++;
+//     }
+//     cout<<ans;cl;
+// //     cl;
+// // printarr(pr);
+string S; cin >> S;
+    ll a = 0, b = 0, c = 0;    
+    for (int i = 0; i < S.size(); ++i) {
+        if (S[i] == 'o') {
+            b += a;
+        } else if (i > 0 && S[i-1] == 'v') {
+            a++;
+            c += b;
+        }
+    }
+    cout << c << endl;
+
 }
 int main(){
     IOS
@@ -194,7 +301,7 @@ int main(){
     #endif
     int t=1;
     // cout<<string(3,'1');
-    cin>>t;
+    // cin>>t;
     while(t--){
 
         solve();

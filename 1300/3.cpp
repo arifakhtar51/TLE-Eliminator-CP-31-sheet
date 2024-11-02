@@ -179,12 +179,40 @@ while(i<j){
 return 1;
 }
 
-    
+
+bool check(vll&arr){
+    map<ll,ll>mp;
+    ll n=arr.size();
+    ll sm=0;
+    for(ll i=0;i<n;i++){
+        sm+=arr[i];
+        if(sm==0|| mp[sm]==1){
+            return 1;
+        }
+        mp[sm]=1;
+    }
+    return 0;
+}
 void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    vector<ll>arr(n);
+    for(ll i=0;i<n;i++){cin>>arr[i];}
+    vll brr=arr;
+    for(int i=0;i<n;i+=2){
+        brr[i]=-brr[i];
+    }
+    for(int i=1;i<n;i+=2){
+        arr[i]=-arr[i];
+    }
+    if(check(brr) || check(arr)){
+        cy;
+    }
+    else {
+        cn;
+    }
+
 }
 int main(){
     IOS

@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -134,6 +135,35 @@ ll binpow(ll a, ll b, ll mod) {
         return temp * temp % mod;
     }
 }
+void KMP(string& pat, int M, vector<int>& lps)
+{
+    // Length of the previous longest prefix suffix
+    int len = 0;
+
+    // lps[0] is always 0
+    lps[0] = 0;
+
+    // loop calculates lps[i] for i = 1 to M-1
+    int i = 1;
+    while (i < M) {
+        if (pat[i] == pat[len]) {
+            len++;
+            lps[i] = len;
+            i++;
+        }
+        else // (pat[i] != pat[len])
+        {
+            if (len != 0) {
+                len = lps[len - 1];
+            }
+            else // if (len == 0)
+            {
+                lps[i] = 0;
+                i++;
+            }
+        }
+    }
+}
 int lcm(int a,int b){return a*b/__gcd(a,b);}
 vector<int> Z_Function(string s) {
     int N = s.length();
@@ -182,9 +212,24 @@ return 1;
     
 void solve(){
     
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    ll n,x;
+    cin>>n>>x;
+    vector<ll>arr(n);
+    for(ll i=0;i<n;i++){cin>>arr[i];}
+    ll ans=0;
+    ll gol=0;
+    for(int i=0;i<n;i++){
+        if(arr[i]>=x){gol+=arr[i];}
+        else{
+            if(arr[i]==0)
+            if(gol>=1){
+                gol--;
+                ans++;
+            }
+        }
+    }
+    cout<<ans;cl;
+
 }
 int main(){
     IOS

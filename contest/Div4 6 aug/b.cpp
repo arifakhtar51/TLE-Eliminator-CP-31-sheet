@@ -104,7 +104,15 @@ ll binpow(ll a, ll b, ll mod) {
 int lcm(int a,int b){return a*b/__gcd(a,b);}
 
 vector <int> Z_Function (string s) {
-        
+    // "aaabaab" -  
+    // [0, 2, 1, 0, 2, 1, 0] 
+    // Suppose we are given a string  
+    // $s$  of length  
+    // $n$ . The Z-function for this string is an array of length  
+    // $n$  where the  
+    // $i$ -th element is equal to the greatest number of characters starting from the position  
+    // $i$  that coincide with the first characters of  
+    // $s$ .
         int N = s.length();
         
         vector <int> Z(N, 0);
@@ -135,93 +143,72 @@ int log_a_to_base_b(int a, int b)
 {
     return log2(a) / log2(b);
 }
+bool isPalin(vll &arr){
+    int i=0,j=arr.size()-1;
+    while(i<j){
+        if(arr[i]!=arr[j])return 0;
+        i++,j--;
+    }
+    return 1;
+}
 
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
 /*=================Think a bit more=============*/
 // author -arifakhtar
 
-bool isPalin(vll &arr){
-int i=0,j=arr.size()-1;
-while(i<j){
-    if(arr[i]!=arr[j])return 0;
-    i++,j--;
-}
-return 1;
-}
-bool CheckBits(vector<int>&temp1,vector<int>&temp2){
-    for(int i=0;i<32;i++){
-        if(temp1[i]>0){
-            if(temp2[i]==0){
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
-bool isSame(vector<int>arr,int x,int y){
-    bool flag=0;
-    int i=0;
-    for(int k=0;k<arr.size();k++){
-        if(arr[k]==x){
-            i=k;break;
-        }
-    }
-    while(i<arr.size()){
-        if(arr[i]==y){
-            flag=1;
-        }
-        i++;
-    }
-    return flag;
-}
-bool solve2(vector<int>arr,int n,vector<int>brr,int m,int x,int y){
-    map<int,int>mp;//stop,ind
-    for(int i=0;i<m;i++){
-        mp[brr[i]]=i;
-    }
-    int i=0;
-    for(int k=0;k<arr.size();k++){
-        if(mp[arr[i]]>=0){
-            i=mp[arr[i]];
-            break;
-        }
-    }
-    while(i<m){
-        if(brr[i]==y){
-            return 1;
-        }
-        i++;
-    }
-    return 0;
-}
-string solve(int n,int m,vector<int>arr,vector<int>brr,int x,int y){
-    if(isSame(arr,x,y) || isSame(brr,x,y)){
-        return "YES";
-    }
-    
-    if(solve2(arr,n,brr,m,x,y)||solve2(brr,m,arr,n,x,y)){
-        return "YES";
-    }
-    else return "NO";
-    
 
+vector<vector<int>> generatePermutations(vector<int>& arr) {
+    vector<vector<int>> permutations;
+    sort(arr.begin(), arr.end());  // Sort the array to ensure starting from the lexicographically smallest permutation
+
+    do {
+        permutations.push_back(arr);
+    } while (next_permutation(arr.begin(), arr.end()));
+
+    return permutations;
+}
+
+
+void solve(){
+    
+     int a1, a2, b1, b2;
+        cin >> a1 >> a2 >> b1 >> b2;
+        
+        int ans = 0;
+
+        int temp = (a1 > b1) +(a2 > b2);
+        int temp2 = (a1 < b1) + (a2 < b2);
+        if (temp > temp2) ans++;
+
+        temp = (a1 > b2) + (a2 > b1);
+        temp2 = (a1 < b2) + (a2 < b1);
+        if (temp > temp2) ans++;
+
+        temp = (a2 > b1) + (a1 > b2);
+        temp2 = (a2 < b1) + (a1 < b2);
+        if (temp > temp2) ans++;
+
+        temp = (a2 > b2) + (a1 > b1);
+        temp2 = (a2 < b2) + (a1 < b1);
+        if (temp > temp2) ans++;
+
+        cout << ans << endl;
 }
 int main(){
-    // IOS
-    // #ifndef ONLINE_JUDGE
-    // freopen("input.txt","r",stdin);
-    // freopen("output.txt","w",stdout);
-    // #endif
-    cout<<solve(5,6,{1,2,3,4,5},{6,7,3,8,9,10},2,9);
-    // int t=1;
-    // // cout<<string(3,'1');
-    // cin>>t;
-    // while(t--){
+    IOS
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    #endif
+    int t=1;
+    // cout<<string(3,'1');
+    cin>>t;
+    while(t--){
 
-    //     solve();
+        solve();
 
-    // }
+    }
     // cout<<(4 ^ 9);cl;
     // cout<<(2^5^7);
 

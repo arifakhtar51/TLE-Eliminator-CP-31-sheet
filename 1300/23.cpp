@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -93,6 +94,11 @@ void FindPrime(){
             Prime[j]=0;
             j+=i;
         }
+    }
+}
+void printvpll(vpll&vp){
+    for(auto i:vp){
+        cout<<i.first<<" "<<i.second<<" ";cl;
     }
 }
 
@@ -184,7 +190,61 @@ void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    vll pf;
+    ll x=2;
+    while(n>0 && x<=sqrt(n)){
+        while(n%x==0){
+            pf.push_back(x);
+            n/=x;
+        }
+        x++;
+    }
+    if(n>1){
+        pf.push_back(n);
+    }
+
+        // printarr(pf);cl;
+    
+    if(pf.size()<=2){
+        cn;
+    }
+    else{
+        srt(pf);
+        // printarr(pf);cl;
+        if(pf.size()==3 &&( pf[0]==pf[1] || pf[1]==pf[2]) || (pf.size()==3 && pf[0]==pf[1])){
+            cn;
+        }
+        else{
+          if(pf[0]==pf[1]){
+            // cy;
+            ll p=1;
+            for(ll i=3;i<pf.size();i++){
+                p*=pf[i];
+            }
+            if(pf[0]==p || pf[1]*pf[2]==p){
+                cn;return ;
+            }
+            cy;
+
+            cout<<pf[0]<<" "<<pf[1]*pf[2]<<" "<<p;
+            cl;
+          }
+          else{
+            // cy;
+            ll p=1;
+            for(ll i=2;i<pf.size();i++){
+                p*=pf[i];
+            }
+            if(pf[0]==p || pf[1]==p){
+                cn;return ;
+            }
+            cy;
+            cout<<pf[0]<<" "<<pf[1]<<" "<<p;
+            cl;
+
+          }
+        }
+    }
 }
 int main(){
     IOS

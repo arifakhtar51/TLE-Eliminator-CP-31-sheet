@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -93,6 +94,11 @@ void FindPrime(){
             Prime[j]=0;
             j+=i;
         }
+    }
+}
+void printvpll(vpll&vp){
+    for(auto i:vp){
+        cout<<i.first<<" "<<i.second<<" ";cl;
     }
 }
 
@@ -184,7 +190,45 @@ void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    vector<ll>arr(n);
+    for(ll i=0;i<n;i++){cin>>arr[i];}
+    map<ll,vector<ll>>mp;
+    for(int i=0;i<n;i++){
+        mp[arr[i]].push_back(i+1);
+    }
+    srt(arr);
+    vector<ll>p(n,0);
+    p[0]=arr[0];
+    for(int i=1;i<n;i++){
+        p[i]=p[i-1]+arr[i];
+    }
+    vector<ll>ans;
+    map<ll,ll>vis;
+    for(int i=0;i<n-1;i++){
+        if(vis[arr[i]]==1){
+            continue;
+
+        }
+        vis[arr[i]]=1;
+        ll temp=p[n-2]-arr[i];
+        if(temp==arr[n-1]){
+            auto v=mp[arr[i]];
+            // cout<<arr[i]<<" "<<i<<" ";cl;
+            for(auto k:v){
+                ans.push_back(k);
+            }
+        }
+    }
+    if(n>=3 && vis[arr[n-1]]==0){
+        if(p[n-3]==arr[n-2]){
+            ans.push_back(mp[arr[n-1]][0]);
+        }
+    }
+    cout<<ans.size();
+    cl;
+    printarr(ans);
+
+
 }
 int main(){
     IOS
@@ -194,7 +238,7 @@ int main(){
     #endif
     int t=1;
     // cout<<string(3,'1');
-    cin>>t;
+    // cin>>t;
     while(t--){
 
         solve();

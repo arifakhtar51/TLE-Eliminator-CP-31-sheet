@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -178,13 +179,51 @@ while(i<j){
 }
 return 1;
 }
-
+void printvpll(vpll&vp){
+    for(auto i:vp){
+        cout<<i.first<<" "<<i.second<<" ";cl;
+    }
+}
     
 void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    vector<ll>arr(n);
+    for(ll i=0;i<n;i++){cin>>arr[i];}
+    vector<pair<ll,ll>>vp;
+    for(ll i=0;i<n;i++){
+        if(arr[i]-(i+1)<0){
+            vp.push_back({arr[i],i+1});
+        }
+    }
+    srt(vp);
+    n=vp.size();
+    ll res=0;
+    // printvpll(vp);
+    for(ll i=0;i<vp.size();i++){
+        ll j=vp[i].second;
+        ll s=0,e=n-1;
+        ll ans=n;
+        while(s<=e){
+            ll mid=(s+e)/2;
+            if(vp[mid].first>j){
+                ans=mid;
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+        }
+        // cout<<"ans= "<<ans<< "at i="<<i;cl;
+        if(ans!=n){
+            res+=n-ans;
+        }
+    }
+    cout<<res;cl;
+    // srt(vp);
+    
+
 }
 int main(){
     IOS

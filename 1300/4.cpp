@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -179,12 +180,45 @@ while(i<j){
 return 1;
 }
 
-    
+    vll facc(ll n){
+        vll temp;
+        ll t=n;
+        for(int i=2;i*i<=n;i++){
+        
+            while(n%i==0){
+                n/=i;
+                temp.push_back(i);
+            }
+        }
+        if(n>1){
+            temp.push_back(n);
+        }
+        return temp;
+
+    }
 void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    vector<ll>arr(n);
+    for(ll i=0;i<n;i++){cin>>arr[i];}
+    map<ll,ll>mp;
+    for(auto i:arr){
+        vll f=facc(i);
+        for(auto j:f){
+            
+            mp[j]++;
+        }
+    // printarr(f);cl;
+        
+    }
+    for(auto i:mp){
+        if(i.second%n!=0){
+            cn;return ;
+        }
+    }
+    cy;
+
 }
 int main(){
     IOS

@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -93,6 +94,11 @@ void FindPrime(){
             Prime[j]=0;
             j+=i;
         }
+    }
+}
+void printvpll(vpll&vp){
+    for(auto i:vp){
+        cout<<i.first<<" "<<i.second<<" ";cl;
     }
 }
 
@@ -178,13 +184,104 @@ while(i<j){
 }
 return 1;
 }
+// maja AA GYA
 
+bool find(vector<pair<ll,ll>>&arr,ll mid,ll sze){
+    ll temp=mid;
+    for(ll i=0;i<arr.size();i++){
+        if(temp<arr[i].first){
+            return 0;
+        }
+        else{
+            temp+=arr[i].second;
+        }
+    }
+    return 1;
+    // ll prev=0;
+    // ll flag=1;
+    // ll initial=arr[0].first+arr[0].second;
+    // for(int i=1;i<=mid;i++){
+        
+    //     if(initial<arr[i].first){
+    //         return 0;
+    //         flag= 0;break;
+    //     }
+    //     arr[i].first=max(initial,arr[i].first);
+    //     initial=arr[i].first+arr[i].second;
+        
+    // }
+    // initial=arr[mid].first+arr[mid].second;
+    // for(ll i=mid+1;i<sze;i++){
+    //     if(initial<arr[i].first){
+    //         return 0;
+    //         // flag= 0;break;
+    //     }
+    //     arr[i].first=max(initial,arr[i].first);
+    //     initial=arr[i].first+arr[i].second;
+    // }
+    // // cout<<initial<<" mid="<<mid;cl;
+    // return 1;
+}
     
 void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+
+    vector<pair<ll,ll>>vp;
+    for(ll i=0;i<n;i++){
+        ll k;
+        cin>>k;
+        ll sm=0;
+        // ll ans=0;
+        vector<ll>temp;
+        for(ll j=0;j<k;j++){
+            ll ele;cin>>ele;
+            temp.push_back(ele);   
+        }
+        ll pow=temp[0]+1;
+        ll ans=pow;
+        for(int it=1;it<k;it++){
+            // pow=min(pow,temp[i]-(i-1));
+            pow++;
+            if(pow>temp[it]){
+
+            }
+            else{
+                ans=temp[it]-(it-1);
+                // cout<<"yaha "<<ans<<" pow="<<pow<<"temp[i]="<<temp[it];cl;
+                pow=temp[it];
+            }
+
+        }
+        // cout<<"ans==="<<ans<<" k="<<k;cl;
+        vp.push_back({ans,k});
+    }
+    sort(begin(vp), end(vp), [&](const pair<ll, ll>& a, const pair<ll, ll>& b) {
+        return a.first < b.first;
+    });
+
+    ll anss=vp[vp.size()-1].first;
+    ll sze=vp.size();
+    ll s=vp[0].first;
+    ll e=anss;
+    while(s<=e){
+        ll mid=s+(e-s)/2;
+        // cout<<mid<<" ";
+        if(find(vp,mid,sze)){
+            anss=mid;
+            e=mid-1;
+        }
+        else{
+            s=mid+1;
+        }
+    }
+    cout<<anss;cl;
+    // for (const auto& v : vp) {
+    //     cout << v.first << " " << v.second << endl;  // Using endl for new line
+    // }
+
+
 }
 int main(){
     IOS
@@ -196,10 +293,7 @@ int main(){
     // cout<<string(3,'1');
     cin>>t;
     while(t--){
-
         solve();
-
-
     }
 
 }

@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -93,6 +94,11 @@ void FindPrime(){
             Prime[j]=0;
             j+=i;
         }
+    }
+}
+void printvpll(vpll&vp){
+    for(auto i:vp){
+        cout<<i.first<<" "<<i.second<<" ";cl;
     }
 }
 
@@ -134,7 +140,7 @@ ll binpow(ll a, ll b, ll mod) {
         return temp * temp % mod;
     }
 }
-int lcm(int a,int b){return a*b/__gcd(a,b);}
+ll lcm(ll a,ll b){return a*b/__gcd(a,b);}
 vector<int> Z_Function(string s) {
     int N = s.length();
     vector<int> Z(N, 0);
@@ -179,12 +185,49 @@ while(i<j){
 return 1;
 }
 
-    
+    #define pll pair<ll,ll>
 void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    if(n%2==0){
+        cout<<n/2<<" "<<n/2;cl;
+    }
+    else{
+        vll p=factors(n);
+        ll ans=1e9;
+        pll res={-1,-1};
+        for(int i=0;i<p.size();i++){
+            ll ele=p[i];
+            ll ele2=n-ele;
+            if(ele==n)continue;;
+            ll lc=lcm(ele,ele2);
+            if(lc<ans){
+                ans=lc;
+                res={ele,ele2};
+            }
+        }
+        cout<<res.first<<" "<<res.second;cl;
+
+    }
+// easy soln 
+// fun main() {
+//     for (c in 1..readLine()!!.toInt()) {
+//         val n = readLine()!!.toInt()
+//         var p = 0
+//         for (m in 2..100000) {
+//             if (n % m == 0) {
+//                 p = m
+//                 break
+//             }
+//         }
+//         if (p == 0) {
+//             p = n
+//         }
+//         println("${n / p} ${n - (n / p)}")
+//     }
+// }
+
 }
 int main(){
     IOS
@@ -196,10 +239,7 @@ int main(){
     // cout<<string(3,'1');
     cin>>t;
     while(t--){
-
         solve();
-
-
     }
 
 }

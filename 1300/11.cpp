@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -93,6 +94,11 @@ void FindPrime(){
             Prime[j]=0;
             j+=i;
         }
+    }
+}
+void printvpll(vpll&vp){
+    for(auto i:vp){
+        cout<<i.first<<" "<<i.second<<" ";cl;
     }
 }
 
@@ -179,12 +185,108 @@ while(i<j){
 return 1;
 }
 
+struct  Node
+{
+    // int *ptr=NULL;
+    Node *left;
+    Node *right;
+    int data;
+    Node(int d){
+        data=d;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+map<ll,pair<ll,ll>>mp2;
+
+map<ll,vll>mp3;
+ll a=0,b=0;
+ll ans=0;
+void sol(Node*ptr,string color){
+    if(ptr==NULL){
+        return ;
+    }
+    // cout<<ptr->data<<" ";
+    sol(ptr->left,color);
+    sol(ptr->right,color);
+    if(color[ptr->data-1]=='W'){
+        a++;
+    }
+    else{
+        b++;
+    }
+    if(ptr->left==NULL && ptr->right==NULL){
+        mp2[ptr->data]={a,b};
+    }
+    else{
+        ll x=a,y=b;
+        auto v=mp3[ptr->data];
+        for(auto ele:v){
+            auto pp=mp2[ele];
+            x+=pp.first;
+            y+=pp.second;
+        }
+        mp2[ptr->data]={x,y};
+    }
     
+    a=0,b=0;
+    
+}
 void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    vector<ll>arr(n);
+    for(ll i=0;i<n-1;i++){cin>>arr[i];}
+    string color;
+    cin>>color;
+    ll m=n;
+    Node* ptr=new Node(1);
+    map<ll,Node*>mp;
+    mp[1]=ptr;
+    for(int i=0;i<n-1;i++){
+        // i+2
+        if(mp.count(arr[i])>=1){
+            Node* temp=mp[arr[i]];
+            if(temp->left==NULL){
+                
+                temp->left=new Node(i+2);
+                mp[i+2]=temp->left;
+            }
+            else{
+                temp->right=new Node(i+2);
+                mp[i+2]=temp->right;
+
+            }
+        }
+        else{
+            // cout<<i<<" ";
+            // cy;cl;
+        }
+
+    }
+    for(int i=0;i<n-1;i++){
+        mp3[arr[i]].push_back(i+2);
+    }
+    a=0,b=0;
+    sol(ptr,color);
+    // cl;
+    a=0,b=0;
+     ll ans2=0;
+    for(auto p:mp2){
+        if(p.second.first==p.second.second && p.second.first!=0){
+            ans2++;
+            cout<<p.first<<" ";
+            cout<<p.second.first<<" "<<p.second.second<<" ";cl;
+        }
+    }
+    mp3.clear();
+    mp2.clear();
+    cout<<ans2;cl;
+    ans=0;
+
+
 }
 int main(){
     IOS

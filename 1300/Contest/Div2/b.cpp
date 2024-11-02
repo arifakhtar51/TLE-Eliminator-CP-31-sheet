@@ -184,7 +184,17 @@ void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    vector<ll>arr(n);
+    for(ll i=0;i<n;i++){cin>>arr[i];}
+    
+    ll an=arr[n-1];
+    ll x=0;
+    for(ll i=n-3;i>=0;i--){
+        arr[n-2]-=arr[i];
+    }
+    
+    cout<<an-arr[n-2];
+    cl;
 }
 int main(){
     IOS

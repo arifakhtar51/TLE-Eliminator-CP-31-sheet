@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -182,9 +183,24 @@ return 1;
     
 void solve(){
     
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    ll n,k;
+    cin>>n>>k;
+    
+    ll ans=0;
+    if((max(1ll,n-k+1)%2==1)){
+        ans=(n-max(1ll,n-k+1))/2+1;
+    }
+    else{
+        ans=(n-max(1ll,n-k+1)+1)/2;
+
+    }
+    if(ans%2){
+        cn;
+    }
+    else{
+        cy;
+    }
+
 }
 int main(){
     IOS

@@ -179,27 +179,90 @@ while(i<j){
 return 1;
 }
 
-    
-void solve(){
-    
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+int q(const string &s) {
+    cout << "? " << s << endl;
+    cout.flush();
+    int res;
+    cin >> res;
+    return res;
 }
-int main(){
+
+void sol(string s, int n) {
+    string ans = s;
+    int bb = 0;
+    string ahead = ""; 
+    string before = "";
+
+    for (int i = 0; i < n - 2; i++) {
+
+        string cur1 = ans + "0";
+        string cur2 = ans + "1";
+
+
+        if (bb == 0) {
+            if (q(cur1)) {
+                ans = cur1;
+            } else if (q(cur2)) {
+                ans = cur2;
+            } else {
+                bb = 1;
+            }
+        }
+
+
+        if (bb == 1) {
+            string c1 = "0" + ans;
+            string c2 = "1" + ans;
+            if (q(c1)) {
+                ans = c1;
+            } else {
+                ans = c2;
+            }
+        }
+    }
+
+
+    cout << "! " << ans << endl;
+    cout.flush();
+}
+
+int main() {
     IOS
     #ifndef ONLINE_JUDGE
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
     #endif
-    int t=1;
-    // cout<<string(3,'1');
-    cin>>t;
-    while(t--){
+    ll t;
+    cin >> t;
 
-        solve();
+    while (t--) {
+        int n;
+        cin >> n;
 
+        if (n == 1) {
+            if (q("1")) {
+                cout << "! 1" << endl;
+            } else {
+                cout << "! 0" << endl;
+            }
+            continue;
+        }
 
+        if (q("00")) {
+            sol("00", n);
+        } else if (q("01")) {
+            sol("01", n);
+        } else if (q("10")) {
+            sol("10", n);
+        } else {
+            string temp="";
+            for(int i=0;i<n;i++){
+                temp+="1";
+            }
+            cout<<"! "<<temp;cl;
+    
+        }
     }
 
+    return 0;
 }

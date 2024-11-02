@@ -104,7 +104,15 @@ ll binpow(ll a, ll b, ll mod) {
 int lcm(int a,int b){return a*b/__gcd(a,b);}
 
 vector <int> Z_Function (string s) {
-        
+    // "aaabaab" -  
+    // [0, 2, 1, 0, 2, 1, 0] 
+    // Suppose we are given a string  
+    // $s$  of length  
+    // $n$ . The Z-function for this string is an array of length  
+    // $n$  where the  
+    // $i$ -th element is equal to the greatest number of characters starting from the position  
+    // $i$  that coincide with the first characters of  
+    // $s$ .
         int N = s.length();
         
         vector <int> Z(N, 0);
@@ -129,11 +137,17 @@ vector <int> Z_Function (string s) {
         
         return Z;
     }
-
-
 int log_a_to_base_b(int a, int b)
 {
     return log2(a) / log2(b);
+}
+bool isPalin(vll &arr){
+    int i=0,j=arr.size()-1;
+    while(i<j){
+        if(arr[i]!=arr[j])return 0;
+        i++,j--;
+    }
+    return 1;
 }
 
 /* ===============BoilerPlate code end=========== */
@@ -141,87 +155,123 @@ int log_a_to_base_b(int a, int b)
 /*=================Think a bit more=============*/
 // author -arifakhtar
 
-bool isPalin(vll &arr){
-int i=0,j=arr.size()-1;
-while(i<j){
-    if(arr[i]!=arr[j])return 0;
-    i++,j--;
-}
-return 1;
-}
-bool CheckBits(vector<int>&temp1,vector<int>&temp2){
-    for(int i=0;i<32;i++){
-        if(temp1[i]>0){
-            if(temp2[i]==0){
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
-bool isSame(vector<int>arr,int x,int y){
-    bool flag=0;
-    int i=0;
-    for(int k=0;k<arr.size();k++){
-        if(arr[k]==x){
-            i=k;break;
-        }
-    }
-    while(i<arr.size()){
-        if(arr[i]==y){
-            flag=1;
-        }
-        i++;
-    }
-    return flag;
-}
-bool solve2(vector<int>arr,int n,vector<int>brr,int m,int x,int y){
-    map<int,int>mp;//stop,ind
-    for(int i=0;i<m;i++){
-        mp[brr[i]]=i;
-    }
-    int i=0;
-    for(int k=0;k<arr.size();k++){
-        if(mp[arr[i]]>=0){
-            i=mp[arr[i]];
-            break;
-        }
-    }
-    while(i<m){
-        if(brr[i]==y){
-            return 1;
-        }
-        i++;
-    }
-    return 0;
-}
-string solve(int n,int m,vector<int>arr,vector<int>brr,int x,int y){
-    if(isSame(arr,x,y) || isSame(brr,x,y)){
-        return "YES";
-    }
+void solve(){
     
-    if(solve2(arr,n,brr,m,x,y)||solve2(brr,m,arr,n,x,y)){
-        return "YES";
+    ll n;
+    cin >> n;
+    vll arr(n);
+    for (ll i = 0; i < n; i++) {
+        cin >> arr[i];
     }
-    else return "NO";
-    
 
+    vector<ll> res(n);
+    int i=0;
+    while(i<n) {
+        if (arr[i] != n){
+            // can ecnt equal
+            res[i] = arr[i] + 1;}
+        else{
+            res[i] = 1;}
+            i++;
+    }
+
+    for (ll i = 0; i < n; i++) {
+        cout << res[i] << " ";
+    }
+cl;
+    
+//      vll brr;
+    
+//         for(int i=n/2;i<n;i++){
+//             // cout<<arr[i]<<" ";
+//             brr.push_back(arr[i]);
+//         }
+//             srt(brr);
+//             rev(brr);
+//             vll temp;
+//         for(int i=0;i<n/2;i++){
+//             // cout<<arr[i]<<"";
+//             temp.push_back(arr[i]);
+//         }
+//         srt(temp);
+//         // if(n%2!=0){
+//         //     swap(brr[0],brr[1]);
+//         // }
+//         // printarr(brr);
+//         // printarr(temp);cl;
+//         vll ans;
+//         for(auto i:brr){
+//             ans.push_back(i);
+//         }
+//         for(auto i:temp){
+//             ans.push_back(i);
+//         }
+
+//         for(int i=0;i<n-1;i++){
+//             if(ans[i]==arr[i]){
+//                 swap(ans[i],ans[i+1]);
+//             }
+//         }
+// printarr(ans);cl;
+
+    
+     
+//     //  vll brr;
+//     //  next_permutation(begin(arr),end(arr));
+//     // rev(brr);
+//     // int i=0,j=n-1;
+//     // while(i<=j){
+//     //     if(i==j){
+//     //         brr.push_back(arr[i]);
+//     //     }
+//     //     else{
+//     //         brr.push_back(arr[j]);
+//     //         brr.push_back(arr[i]);
+
+
+//     //     }
+//     //     i++,j--;
+
+//     // }
+//     // for(int i=0;i<n;i++){
+//     //     if(arr[i]==brr[i]){
+//     //         swap(brr[i],brr[i-1]);
+//     //     }
+//     // }
+//     // printarr(brr);cl;
+
+//     // for(ll i=0;i<n;i++){
+//     //     if(arr[i]==brr[i]){
+//     //         if(i==0){
+//     //             swap(brr[i],brr[i+1]);
+//     //         }
+//     //         else{
+//     //             swap(brr[i],brr[i-1]);
+//     //         }
+//     //     }
+//     // }
+//     // printarr(brr);
+//     //  printarr(arr);cl;
+//     // for(auto i:arr){
+//     //     cout<<i<<" ";
+//     // }
+//     // cl;
+    
 }
 int main(){
-    // IOS
-    // #ifndef ONLINE_JUDGE
-    // freopen("input.txt","r",stdin);
-    // freopen("output.txt","w",stdout);
-    // #endif
-    cout<<solve(5,6,{1,2,3,4,5},{6,7,3,8,9,10},2,9);
-    // int t=1;
-    // // cout<<string(3,'1');
-    // cin>>t;
-    // while(t--){
+    IOS
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    #endif
+    int t=1;
+    // cout<<string(3,'1');
+    cin>>t;
+    while(t--){
 
-    //     solve();
+        solve();
 
-    // }
+    }
     // cout<<(4 ^ 9);cl;
     // cout<<(2^5^7);
 

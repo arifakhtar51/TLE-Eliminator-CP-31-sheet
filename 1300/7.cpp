@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -151,7 +152,7 @@ vector<int> Z_Function(string s) {
             left = i;
             right = i + Z[i];
         }
-    }
+    }       
     return Z;
 }
 //         //z[i] represent length of longest substr starting at i that is prefix of s
@@ -179,12 +180,41 @@ while(i<j){
 return 1;
 }
 
-    
+bool check(ll n,ll mid){
+    if(mid>=n)return 0;
+    ll cnt=1;
+    ll p=1;
+    // n--;
+    while(cnt<=n){
+        if(cnt==n)return 1;
+        cnt+=p*mid;
+        p=p*mid;
+        // if(cnt==n)return 1;
+        if(cnt>1e6)break;
+    }
+    return 0;
+}
 void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    // if(n<=12 && n!=7){
+    //     // cout<<0;cl;return ;
+    //     cn;return ;
+    // }
+
+    ll ans=1;
+    for(ll mid=2;mid<=min((ll)n/2,(ll)1000);mid++){
+        if(check(n,mid)){
+            cy;
+            return ;
+            // cout<<mid<<" ";cl;return ;
+        }
+        
+    }
+    cn;
+    // cout<<ans;cl;
+    // cout<<ans;cl;
 }
 int main(){
     IOS

@@ -59,8 +59,10 @@
   "files.associations": {
     "*.ejs": "html",
     "iostream": "cpp",
-    "initializer_list": "cpp",
-    "valarray": "cpp",
-    "cstdlib": "cpp"
-  }
+    "functional": "cpp",
+    "array": "cpp",
+    "iosfwd": "cpp",
+    "new": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "enabled"
 }

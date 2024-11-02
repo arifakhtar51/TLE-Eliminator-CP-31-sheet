@@ -62,7 +62,7 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
     for(int i=1;i<=sqrt(n);i++){
         if(n%i==0){
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -93,6 +94,11 @@ void FindPrime(){
             Prime[j]=0;
             j+=i;
         }
+    }
+}
+void printvpll(vpll&vp){
+    for(auto i:vp){
+        cout<<i.first<<" "<<i.second<<" ";cl;
     }
 }
 
@@ -184,7 +190,33 @@ void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    vector<ll>arr(n);
+    ll sm=0;
+    for(ll i=0;i<n;i++){cin>>arr[i];}
+    for (auto i:arr)sm+=i;
+    ll maxi=0;
+    bool flag=0;
+    if(arr[n-1]>=sm){cn;return;}
+    ll s=0;
+    
+    for(int i=0;i<n;i++){
+        maxi+=arr[i];
+        if(maxi>sm ){
+            cn;return ;
+        }
+        if(maxi==sm && (s!=0 || i!=n-1 )){
+            cn;return ;
+        }
+        if(maxi<=0){
+            // flag=1;
+            s=i+1;
+            maxi=0;
+        }
+    }
+    // if(maxi==sm && flag==1){
+    //     cn;return ;
+    // }
+    cy;
 }
 int main(){
     IOS
@@ -196,10 +228,7 @@ int main(){
     // cout<<string(3,'1');
     cin>>t;
     while(t--){
-
         solve();
-
-
     }
 
 }

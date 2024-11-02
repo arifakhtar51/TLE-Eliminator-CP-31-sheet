@@ -103,126 +103,131 @@ ll binpow(ll a, ll b, ll mod) {
 }
 int lcm(int a,int b){return a*b/__gcd(a,b);}
 
-vector <int> Z_Function (string s) {
+// vector <int> Z_Function (string s) {
         
-        int N = s.length();
+
+//         int N = s.length();
         
-        vector <int> Z(N, 0);
+//         vector <int> Z(N, 0);
         
-        int left = 0, right = 0;
+//         int left = 0, right = 0;
         
-        for (int i=1; i < N; ++i) {
+//         for (int i=1; i < N; ++i) {
             
-            if (i < right) 
-                Z[i] = min(right - i, Z[i-left]);
+//             if (i < right) 
+//                 Z[i] = min(right - i, Z[i-left]);
             
-            while ((i + Z[i] < N) and (s[Z[i]] == s[i + Z[i]]))
-                Z[i]++;
+//             while ((i + Z[i] < N) and (s[Z[i]] == s[i + Z[i]]))
+//                 Z[i]++;
             
-            if (i + Z[i] > right) {
+//             if (i + Z[i] > right) {
                 
-                left = i;
-                right = i + Z[i];
-            }
+
+            
+//         int N = s.length();
+//         vector <int> Z(N, 0);
+//         int left = 0, right = 0;
+//         for (int i=1; i < N; ++i) {
+//             if (i < right) 
+//                 Z[i] = min(right - i, Z[i-left]);
+//             while ((i + Z[i] < N) and (s[Z[i]] == s[i + Z[i]]))
+//                 Z[i]++;
+//             if (i + Z[i] > right) {
+
+//                 left = i;
+//                 right = i + Z[i];
+//             }
+//         }
+        
+//         return Z;
+//     }
+
+vector<int> Z_Function(string s) {
+    
+//         //z[i] represent length of longest substr starting at i that is prefix of s
+//         // str=pattern+'@' +s
+//         // and apply z function over str 
+//         // q) How many more char need to append in s to make s palindrome
+//         //  str=rev(s)+'@' +s;
+    int N = s.length();
+    vector<int> Z(N, 0);
+    int left = 0, right = 0;
+    
+    for (int i = 1; i < N; ++i) {
+        if (i < right) 
+            Z[i] = min(right - i, Z[i - left]);
+        
+        while (i + Z[i] < N && s[Z[i]] == s[i + Z[i]])
+            Z[i]++;
+        
+        if (i + Z[i] > right) {
+            left = i;
+            right = i + Z[i];
         }
-        
-        
-        return Z;
     }
-
-
-int log_a_to_base_b(int a, int b)
-{
-    return log2(a) / log2(b);
+    return Z;
 }
+
 
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
 /*=================Think a bit more=============*/
-// author -arifakhtar
+// author -arifakhtar 
+// love <-> N
+// (*_#)
 
-bool isPalin(vll &arr){
-int i=0,j=arr.size()-1;
-while(i<j){
-    if(arr[i]!=arr[j])return 0;
-    i++,j--;
-}
-return 1;
-}
-bool CheckBits(vector<int>&temp1,vector<int>&temp2){
-    for(int i=0;i<32;i++){
-        if(temp1[i]>0){
-            if(temp2[i]==0){
-                return 0;
+
+    
+void solve(){
+    
+    ll n,m;
+    cin>>n>>m;
+    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];arr[i]%=m;}
+
+    srt(arr);
+    //     printarr(arr);
+    // cl;
+    map<ll,ll>mp,temp;
+    for(auto i:arr)mp[i]++;
+    ll ans=0;
+
+    for(int i=0;i<n;i++){
+        
+        if(mp[arr[i]]<=0)continue;
+            ll ele=arr[i];
+        ans++;
+        while(true){
+            // cout<<ele<<" ";
+            if(mp[(m-ele)%m]>0){
+                mp[(m-ele)%m]--;
+                ele=(m-ele)%m;
+                
+            }
+            else {
+                mp[arr[i]]--;
+            
+                break;
             }
         }
+
     }
-    return 1;
+    cout<<ans;cl;
+
+
 }
-bool isSame(vector<int>arr,int x,int y){
-    bool flag=0;
-    int i=0;
-    for(int k=0;k<arr.size();k++){
-        if(arr[k]==x){
-            i=k;break;
-        }
-    }
-    while(i<arr.size()){
-        if(arr[i]==y){
-            flag=1;
-        }
-        i++;
-    }
-    return flag;
-}
-bool solve2(vector<int>arr,int n,vector<int>brr,int m,int x,int y){
-    map<int,int>mp;//stop,ind
-    for(int i=0;i<m;i++){
-        mp[brr[i]]=i;
-    }
-    int i=0;
-    for(int k=0;k<arr.size();k++){
-        if(mp[arr[i]]>=0){
-            i=mp[arr[i]];
-            break;
-        }
-    }
-    while(i<m){
-        if(brr[i]==y){
-            return 1;
-        }
-        i++;
+
+int main(){
+    IOS
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    #endif
+    int t=1;
+    // cout<<string(3,'1');
+    cin>>t;
+    while(t--){
+
+        solve();
     }
     return 0;
-}
-string solve(int n,int m,vector<int>arr,vector<int>brr,int x,int y){
-    if(isSame(arr,x,y) || isSame(brr,x,y)){
-        return "YES";
-    }
-    
-    if(solve2(arr,n,brr,m,x,y)||solve2(brr,m,arr,n,x,y)){
-        return "YES";
-    }
-    else return "NO";
-    
-
-}
-int main(){
-    // IOS
-    // #ifndef ONLINE_JUDGE
-    // freopen("input.txt","r",stdin);
-    // freopen("output.txt","w",stdout);
-    // #endif
-    cout<<solve(5,6,{1,2,3,4,5},{6,7,3,8,9,10},2,9);
-    // int t=1;
-    // // cout<<string(3,'1');
-    // cin>>t;
-    // while(t--){
-
-    //     solve();
-
-    // }
-    // cout<<(4 ^ 9);cl;
-    // cout<<(2^5^7);
-
 }

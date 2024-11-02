@@ -102,34 +102,30 @@ ll binpow(ll a, ll b, ll mod) {
     }
 }
 int lcm(int a,int b){return a*b/__gcd(a,b);}
-
-vector <int> Z_Function (string s) {
+vector<int> Z_Function(string s) {
+    int N = s.length();
+    vector<int> Z(N, 0);
+    int left = 0, right = 0;
+    
+    for (int i = 1; i < N; ++i) {
+        if (i < right) 
+            Z[i] = min(right - i, Z[i - left]);
         
-        int N = s.length();
+        while (i + Z[i] < N && s[Z[i]] == s[i + Z[i]])
+            Z[i]++;
         
-        vector <int> Z(N, 0);
-        
-        int left = 0, right = 0;
-        
-        for (int i=1; i < N; ++i) {
-            
-            if (i < right) 
-                Z[i] = min(right - i, Z[i-left]);
-            
-            while ((i + Z[i] < N) and (s[Z[i]] == s[i + Z[i]]))
-                Z[i]++;
-            
-            if (i + Z[i] > right) {
-                
-                left = i;
-                right = i + Z[i];
-            }
+        if (i + Z[i] > right) {
+            left = i;
+            right = i + Z[i];
         }
-        
-        
-        return Z;
     }
-
+    return Z;
+}
+//         //z[i] represent length of longest substr starting at i that is prefix of s
+//         // str=pattern+'@' +s
+//         // and apply z function over str 
+//         // q) How many more char need to append in s to make s palindrome
+//         //  str=rev(s)+'@' +s;
 
 int log_a_to_base_b(int a, int b)
 {
@@ -149,80 +145,30 @@ while(i<j){
 }
 return 1;
 }
-bool CheckBits(vector<int>&temp1,vector<int>&temp2){
-    for(int i=0;i<32;i++){
-        if(temp1[i]>0){
-            if(temp2[i]==0){
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
-bool isSame(vector<int>arr,int x,int y){
-    bool flag=0;
-    int i=0;
-    for(int k=0;k<arr.size();k++){
-        if(arr[k]==x){
-            i=k;break;
-        }
-    }
-    while(i<arr.size()){
-        if(arr[i]==y){
-            flag=1;
-        }
-        i++;
-    }
-    return flag;
-}
-bool solve2(vector<int>arr,int n,vector<int>brr,int m,int x,int y){
-    map<int,int>mp;//stop,ind
-    for(int i=0;i<m;i++){
-        mp[brr[i]]=i;
-    }
-    int i=0;
-    for(int k=0;k<arr.size();k++){
-        if(mp[arr[i]]>=0){
-            i=mp[arr[i]];
-            break;
-        }
-    }
-    while(i<m){
-        if(brr[i]==y){
-            return 1;
-        }
-        i++;
-    }
-    return 0;
-}
-string solve(int n,int m,vector<int>arr,vector<int>brr,int x,int y){
-    if(isSame(arr,x,y) || isSame(brr,x,y)){
-        return "YES";
-    }
-    
-    if(solve2(arr,n,brr,m,x,y)||solve2(brr,m,arr,n,x,y)){
-        return "YES";
-    }
-    else return "NO";
-    
 
+    
+void solve(){
+    
+    ll a,b;
+    cin>>a>>b;
+    cout<<b-a<<" ";
+    cl;return ;
+    // vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
 }
 int main(){
-    // IOS
-    // #ifndef ONLINE_JUDGE
-    // freopen("input.txt","r",stdin);
-    // freopen("output.txt","w",stdout);
-    // #endif
-    cout<<solve(5,6,{1,2,3,4,5},{6,7,3,8,9,10},2,9);
-    // int t=1;
-    // // cout<<string(3,'1');
-    // cin>>t;
-    // while(t--){
+    IOS
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    #endif
+    int t=1;
+    // cout<<string(3,'1');
+    cin>>t;
+    while(t--){
 
-    //     solve();
+        solve();
 
-    // }
-    // cout<<(4 ^ 9);cl;
-    // cout<<(2^5^7);
+
+    }
 
 }

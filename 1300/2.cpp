@@ -23,6 +23,7 @@ const ll MOD = 1e9 + 7;
 // Prefix sum
 
 vll prefixSum(vll&arr){
+    if(arr.size()==0)return {};
     vll psum(arr.size(),0);
     psum[0]=arr[0];int n=arr.size();
 
@@ -178,14 +179,59 @@ while(i<j){
 }
 return 1;
 }
+int binarySearch(const vector<ll>& vec, ll target) {
+    int low = 0;
+    int high = vec.size() - 1;
 
-    
-void solve(){
-    
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (vec[mid] == target) {
+            return mid;
+        } else if (vec[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    return -1;
 }
+
+void solve() {
+    ll n;
+    cin >> n;
+    vector<ll> arr(n);
+    for (ll i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    vector<ll>brr(n,0);
+    brr[n-1]=n;
+    for(int i=n-2;i>=0;i--){
+        if(arr[i]==arr[i+1]){
+            brr[i]=brr[i+1];
+        }
+        else{
+            brr[i]=i+1;
+        }
+
+    }
+    printarr(brr);cl;
+    ll q;cin>>q;
+    while(q--){
+        ll l,r;cin>>l>>r;
+        l--,r--;
+        if(brr[l]<=r){
+            cout<<l+1<<" "<<brr[l]+1;cl;
+        }
+        else{
+            cout<<-1<<" "<<-1;cl;
+        }
+    }cl;
+
+}
+
 int main(){
     IOS
     #ifndef ONLINE_JUDGE

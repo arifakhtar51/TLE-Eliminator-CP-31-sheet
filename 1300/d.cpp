@@ -8,9 +8,9 @@ using namespace std;
 #define cnr cout<<"NO"<<endl; return ;
 #define vll vector<ll>
 #define srt(x) sort(begin(x),end(x))
-#define vi vector<int>
+#define vi vector<ll>
 #define rev(x) reverse(begin(x),end(x))
-#define printarr(arr) for(int i=0;i<arr.size();i++)cout<<arr[i]<<" ";
+#define prllarr(arr) for(ll i=0;i<arr.size();i++)cout<<arr[i]<<" ";
 #define sortr(x) sort(rbegin(x),rend(x))
 #define vpll vector<pair<ll,ll>>
 #define um unordered_map<ll,ll>
@@ -24,9 +24,9 @@ const ll MOD = 1e9 + 7;
 
 vll prefixSum(vll&arr){
     vll psum(arr.size(),0);
-    psum[0]=arr[0];int n=arr.size();
+    psum[0]=arr[0];ll n=arr.size();
 
-    for(int i=1;i<n;i++)psum[i]=psum[i-1]+arr[i];
+    for(ll i=1;i<n;i++)psum[i]=psum[i-1]+arr[i];
     return psum;
 }
 /*
@@ -62,9 +62,9 @@ vll prefixSum(vll&arr){
 ⣿⣿⣿⣿⣿⣷⣮⣿⣿⣿⡌⠁⢤⣤⣤⣤⣬⣭⣴⣶⣶⣶⣆⠈⢻⣿⣿⣆⢻⣿⣿⣿⣿⣿⣿⣷⣶⣤⣌⣉⡘⠛⠻⠶⣿⣿⣿⣿⡟⣰⣫⣴⣿⣿⣿⣿⠄⣷⣿⣿⣿
 */
  
-void factors(ll n){
+vll factors(ll n){
     vll fact;
-    for(int i=1;i<=sqrt(n);i++){
+    for(ll i=1;i<=sqrt(n);i++){
         if(n%i==0){
             if(n/i==i)fact.push_back(i);
             else {
@@ -73,6 +73,7 @@ void factors(ll n){
             }
         }
     }
+    return fact;
 }
 bool static  mycomp(pair<ll,ll>p1,pair<ll,ll>p2){
     if(p1.first==p2.first){
@@ -87,8 +88,8 @@ void FindPrime(){
     vector<bool>Prime(3001,1);
     Prime[0]=0;
     Prime[1]=0;
-    for(int i=2;i*i<=3000;i++){
-        int j=i*i;
+    for(ll i=2;i*i<=3000;i++){
+        ll j=i*i;
         while(j<=3000){
             Prime[j]=0;
             j+=i;
@@ -96,8 +97,8 @@ void FindPrime(){
     }
 }
 
-int sumOfDigit(int n){
-    int sm=0;
+ll sumOfDigit(ll n){
+    ll sm=0;
     while(n){
         sm+=n%10;
         n/=10;
@@ -134,13 +135,13 @@ ll binpow(ll a, ll b, ll mod) {
         return temp * temp % mod;
     }
 }
-int lcm(int a,int b){return a*b/__gcd(a,b);}
-vector<int> Z_Function(string s) {
-    int N = s.length();
-    vector<int> Z(N, 0);
-    int left = 0, right = 0;
+ll lcm(ll a,ll b){return a*b/__gcd(a,b);}
+vector<ll> Z_Function(string s) {
+    ll N = s.length();
+    vector<ll> Z(N, 0);
+    ll left = 0, right = 0;
     
-    for (int i = 1; i < N; ++i) {
+    for (ll i = 1; i < N; ++i) {
         if (i < right) 
             Z[i] = min(right - i, Z[i - left]);
         
@@ -160,7 +161,7 @@ vector<int> Z_Function(string s) {
 //         // q) How many more char need to append in s to make s palindrome
 //         //  str=rev(s)+'@' +s;
 
-int log_a_to_base_b(int a, int b)
+ll log_a_to_base_b(ll a, ll b)
 {
     return log2(a) / log2(b);
 }
@@ -170,36 +171,63 @@ int log_a_to_base_b(int a, int b)
 /*=================Think a bit more=============*/
 // author -arifakhtar
 
-bool isPalin(vll &arr){
-int i=0,j=arr.size()-1;
-while(i<j){
-    if(arr[i]!=arr[j])return 0;
-    i++,j--;
-}
-return 1;
-}
+#include <iostream>
+#include <map>
+using namespace std;
 
-    
-void solve(){
-    
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
-}
-int main(){
-    IOS
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-    #endif
-    int t=1;
-    // cout<<string(3,'1');
-    cin>>t;
-    while(t--){
+void solve() {
+    int n, d, k;
+    cin >> n >> d >> k;
+    int l, r;
+    map<int, int> s, e;
 
-        solve();
-
-
+    while (k--) {
+        cin >> l >> r;
+        s[l]++;
+        e[r]++;
     }
 
+    int m = 0, c = 0, b = 0, mi = 1,bi= 1;
+
+    for (int i = 1; i <= d; i++) {
+        if (s[i]) {
+            c += s[i];
+        }
+    }
+    m = b = c;
+
+    for (int i = 2; i <= n - d + 1; i++) {
+        if (s[i+d-1]) {
+            c += s[i + d - 1];
+        }
+        if (e[(i - 1)] ) {
+            c -= e[i-1];
+        }
+        if (c> b) {
+            b = c;
+            bi= i;
+        }
+        if (m > c) {
+            m = c;
+            mi = i;
+        }
+    }
+    cout << bi << " " << mi;cl;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+    return 0;
 }

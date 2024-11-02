@@ -59,8 +59,6 @@
   "files.associations": {
     "*.ejs": "html",
     "iostream": "cpp",
-    "initializer_list": "cpp",
-    "valarray": "cpp",
-    "cstdlib": "cpp"
+    "cmath": "cpp"
   }
 }

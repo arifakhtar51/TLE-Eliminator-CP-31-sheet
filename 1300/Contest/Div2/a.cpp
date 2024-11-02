@@ -182,9 +182,21 @@ return 1;
     
 void solve(){
     
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);for(ll i=0;i<n;i++){cin>>arr[i];}
+     long long n, x, y;
+        cin >> n >> x >> y; 
+        
+        if(x>=y){
+            cout<<n/y+(n%y>0);
+        }
+        else{
+            ll l=n%x>0;
+            cout<<n/x+l;
+        }
+        cl;
+        
+        
+    
+
 }
 int main(){
     IOS
