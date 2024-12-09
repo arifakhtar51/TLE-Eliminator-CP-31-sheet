@@ -125,28 +125,8 @@ int log_a_to_base_b(int a, int b)
 {
     return log2(a) / log2(b);
 }
-int Arr[100][100];
-int P[100][100];
-void computePrefixSum(int n, int m) {
-    // Calculate the prefix sum using the given formula
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < m; ++j) {
-            P[i][j] = Arr[i][j];
-            if (i > 0) P[i][j] += P[i - 1][j];
-            if (j > 0) P[i][j] += P[i][j - 1];
-            if (i > 0 && j > 0) P[i][j] -= P[i - 1][j - 1];
-        }
-    }
-}
-
-int queryRectangleSum(int U, int L, int D, int R) {
-    // Calculate the sum of values in the specified rectangle
-    int ans = P[D][R];
-    if (L > 0) ans -= P[D][L - 1];
-    if (U > 0) ans -= P[U - 1][R];
-    if (U > 0 && L > 0) ans += P[U - 1][L - 1];
-    return ans;
-}
+    const int s=1e3;
+    int vis[s][s]={0};
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
 /*=================Think a bit more=============*/
@@ -156,9 +136,22 @@ void solve(){
     
     ll n;
     cin>>n;
-    vector<ll>arr(n);
-    for(ll i=0;i<n;i++){cin>>arr[i];}
+    if(n==1){cout<<4<<"\n";return ;}
 
+    if(n&1){
+        ll dots=2,time=1;
+        for(int i=1;i<n;i+=2){
+            dots++,time++;
+        }
+        cout<<dots*time*2;cl;return ;
+    }
+    ll dots=2;
+        for(int i=2;i<n;i+=2){
+            dots++;
+        }
+        cout<<dots*dots;cl;return ;
+
+    
 }
 int main(){
     IOS
@@ -168,12 +161,10 @@ int main(){
     #endif
     int t=1;
     // cout<<string(3,'1');
-    cin>>t;
+    // cin>>t;
     while(t--){
-
         solve();
-
-
     }
+    return 0;
 
 }

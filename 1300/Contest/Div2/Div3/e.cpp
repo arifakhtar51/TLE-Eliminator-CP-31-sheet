@@ -125,55 +125,58 @@ int log_a_to_base_b(int a, int b)
 {
     return log2(a) / log2(b);
 }
-int Arr[100][100];
-int P[100][100];
-void computePrefixSum(int n, int m) {
-    // Calculate the prefix sum using the given formula
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < m; ++j) {
-            P[i][j] = Arr[i][j];
-            if (i > 0) P[i][j] += P[i - 1][j];
-            if (j > 0) P[i][j] += P[i][j - 1];
-            if (i > 0 && j > 0) P[i][j] -= P[i - 1][j - 1];
-        }
-    }
-}
 
-int queryRectangleSum(int U, int L, int D, int R) {
-    // Calculate the sum of values in the specified rectangle
-    int ans = P[D][R];
-    if (L > 0) ans -= P[D][L - 1];
-    if (U > 0) ans -= P[U - 1][R];
-    if (U > 0 && L > 0) ans += P[U - 1][L - 1];
-    return ans;
-}
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
 /*=================Think a bit more=============*/
 // author -arifakhtar
 
-void solve(){
+int solve(const string& a, const string& b, const string& c) {
+    int n = a.length(), m = b.length();
     
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);
-    for(ll i=0;i<n;i++){cin>>arr[i];}
+    
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, INT_MAX));
+    dp[0][0] = 0;
+
+    
+    int i = 0, j = 0;
+    
+    while (i <= n) {
+        while (j <= m) {
+            if (i < n && a[i] == c[i + j]) {
+                dp[i + 1][j] = min(dp[i + 1][j], dp[i][j]);
+            } else if (i < n) {
+                dp[i + 1][j] = min(dp[i + 1][j], dp[i][j] + 1);
+            }
+            
+            if (j < m && b[j] == c[i + j]) {
+                dp[i][j + 1] = min(dp[i][j + 1], dp[i][j]);
+            } else if (j < m) {
+                dp[i][j + 1] = min(dp[i][j + 1], dp[i][j] + 1);
+            }
+            
+            j++;
+        }
+        
+        j = 0;
+        i++;
+    }
+    
+    return dp[n][m];
 
 }
-int main(){
-    IOS
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-    #endif
-    int t=1;
-    // cout<<string(3,'1');
-    cin>>t;
-    while(t--){
 
-        solve();
-
-
+int main() {
+    int t;
+    cin >> t; 
+    
+    while (t--) {
+        string a, b, c;
+        cin >> a >> b >> c;
+        
+        
+        cout << solve(a, b, c) << endl;
     }
-
+    
+    return 0;
 }

@@ -188,32 +188,31 @@ return 1;
     
 void solve(){
     
-    ll n,k;
-    cin>>n>>k;
-    ll ans=-1;
-    ll s=1;
-    ll e=2*n-1;
-    // cout<<e<<" ";cl;
-    bool flag=0;
-    // cout<<e<<" ";
-while(s<=e){
-    ll mid=s+(e-s)/2;
-    ll sn=(ll)(mid*(mid+1)/2);
-
-     if(sn<=k){
-        ans=mid;
-            cout<<sn<<" mid= "<<mid;cl;
-        if(sn==k)flag=1;
-        s=mid+1;
+    string n;
+    cin>>n;
+    
+    vector<ll>arr(3,0);
+    arr[0]=1;
+    for(int i=0;i<n.size();i++){
+        if(n[i]=='A'){
+            swap(arr[0],arr[1]);
+        }
+        else if(n[i]=='B'){
+            swap(arr[1],arr[2]);
+        }
+        else{
+            swap(arr[0],arr[2]);
+        }
     }
-    else{
-        e=mid-1;
-    }
+if(arr[0]==1){
+    cout<<1;
 }
-cout<<ans;cl;
-
-
-
+else if(arr[1]==1){
+    cout<<2<<" ";
+}
+else {
+    cout<<3<<" ";
+}
 }
 int main(){
     IOS
@@ -223,7 +222,7 @@ int main(){
     #endif
     int t=1;
     // cout<<string(3,'1');
-    cin>>t;
+    // cin>>t;
     while(t--){
 
         solve();

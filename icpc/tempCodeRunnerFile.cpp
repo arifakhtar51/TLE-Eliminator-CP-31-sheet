@@ -188,30 +188,31 @@ return 1;
     
 void solve(){
     
-    ll n,k;
-    cin>>n>>k;
-    ll ans=-1;
-    ll s=1;
-    ll e=2*n-1;
-    // cout<<e<<" ";cl;
-    bool flag=0;
-    // cout<<e<<" ";
-while(s<=e){
-    ll mid=s+(e-s)/2;
-    ll sn=(ll)(mid*(mid+1)/2);
-
-     if(sn<=k){
-        ans=mid;
-            cout<<sn<<" mid= "<<mid;cl;
-        if(sn==k)flag=1;
-        s=mid+1;
+    ll m,n;
+    cin>>m>>n;
+    // swap(n,m);
+    // vector<ll>arr(n);
+    ll xr=0;
+    
+    for(ll i=0;i<n;i++){
+        ll ele;
+        cin>>ele;
+        xr^=ele;
+        
     }
-    else{
-        e=mid-1;
+    // ll md=1e9+7;
+    if(xr==0){
+        cout<<0;
     }
-}
-cout<<ans;cl;
-
+    else  if(m&1){
+        ll md = 1e9 + 7;
+        
+        cout << (xr %md) << " ";
+        
+    }
+    else {
+        cout<<0<<" ";
+    }
 
 
 }
@@ -223,7 +224,7 @@ int main(){
     #endif
     int t=1;
     // cout<<string(3,'1');
-    cin>>t;
+    // cin>>t;
     while(t--){
 
         solve();

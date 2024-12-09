@@ -176,59 +176,46 @@ int log_a_to_base_b(int a, int b)
 /*=================Think a bit more=============*/
 // author -arifakhtar
 
-bool isPalin(vll &arr){
-int i=0,j=arr.size()-1;
-while(i<j){
-    if(arr[i]!=arr[j])return 0;
-    i++,j--;
-}
-return 1;
-}
-
-    
-void solve(){
-    
-    ll n,k;
-    cin>>n>>k;
-    ll ans=-1;
-    ll s=1;
-    ll e=2*n-1;
-    // cout<<e<<" ";cl;
-    bool flag=0;
-    // cout<<e<<" ";
-while(s<=e){
-    ll mid=s+(e-s)/2;
-    ll sn=(ll)(mid*(mid+1)/2);
-
-     if(sn<=k){
-        ans=mid;
-            cout<<sn<<" mid= "<<mid;cl;
-        if(sn==k)flag=1;
-        s=mid+1;
-    }
-    else{
-        e=mid-1;
-    }
-}
-cout<<ans;cl;
+struct Pair {
+    long long x, y;
+};
 
 
+int main() {
+    long long n, m;
+    cin >> n >> m;  // n = number of pairs, m = the maximum distance threshold
+    vector<Pair> pairs(n);
 
-}
-int main(){
-    IOS
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-    #endif
-    int t=1;
-    // cout<<string(3,'1');
-    cin>>t;
-    while(t--){
-
-        solve();
-
-
+    // Input the pairs (x, y)
+    for (long long i = 0; i < n; i++) {
+        cin >> pairs[i].x >> pairs[i].y;
     }
 
+    // Sort the pairs by the x coordinate
+    sort(pairs.begin(), pairs.end(), [](const Pair& a, const Pair& b) {
+        return a.x < b.x;
+    });
+
+    long long max_degree = 0;
+
+    // Use a sliding window approach to find the max degree
+    long long j = 0;
+    for (long long i = 0; i < n; i++) {
+        // Move the right pointer 'j' as long as the condition holds
+        while (j < n && pairs[j].x - pairs[i].x <= m) {
+            long long x1 = pairs[i].x, y1 = pairs[i].y;
+            long long x2 = pairs[j].x, y2 = pairs[j].y;
+
+            long long abs_diff = abs(x1 - x2);
+
+            if (abs_diff <= m) {
+                long long degree = y1 + y2 + abs_diff;
+                max_degree = max(max_degree, degree);
+            }
+            j++;  // Move the right pointer
+        }
+    }
+
+    cout << max_degree << " ";
+    return 0;
 }

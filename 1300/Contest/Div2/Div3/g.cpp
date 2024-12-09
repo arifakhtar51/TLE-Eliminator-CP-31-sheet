@@ -125,55 +125,52 @@ int log_a_to_base_b(int a, int b)
 {
     return log2(a) / log2(b);
 }
-int Arr[100][100];
-int P[100][100];
-void computePrefixSum(int n, int m) {
-    // Calculate the prefix sum using the given formula
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < m; ++j) {
-            P[i][j] = Arr[i][j];
-            if (i > 0) P[i][j] += P[i - 1][j];
-            if (j > 0) P[i][j] += P[i][j - 1];
-            if (i > 0 && j > 0) P[i][j] -= P[i - 1][j - 1];
-        }
-    }
-}
 
-int queryRectangleSum(int U, int L, int D, int R) {
-    // Calculate the sum of values in the specified rectangle
-    int ans = P[D][R];
-    if (L > 0) ans -= P[D][L - 1];
-    if (U > 0) ans -= P[U - 1][R];
-    if (U > 0 && L > 0) ans += P[U - 1][L - 1];
-    return ans;
-}
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
 /*=================Think a bit more=============*/
-// author -arifakhtar
+// author -arifakhta
+void solve() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        
+        vector<int> deg(n + 1, 0);
+        vector<pair<int, int>> edge;
+        
+        for (int i = 0; i < n - 1; ++i) {
+            int u, v;
+            cin >> u >> v;
+            deg[u]++;
+            deg[v]++;
+            edge.push_back({u, v});
+        }
+        
+        int max_deg = 0;
+        for (int i = 1; i <= n; ++i) {
+            max_deg = max(max_deg, deg[i]);
+        }
 
-void solve(){
-    
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);
-    for(ll i=0;i<n;i++){cin>>arr[i];}
-
-}
-int main(){
-    IOS
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-    #endif
-    int t=1;
-    // cout<<string(3,'1');
-    cin>>t;
-    while(t--){
-
-        solve();
-
-
+        int temp = 0;
+        for (int i = 0; i < n - 1; ++i) {
+            int u = edge[i].first, v = edge[i].second;
+            int current = deg[u] + deg[v] - 2;
+            temp = max(temp, current);
+        }
+        
+        int answer = max(max_deg, temp);
+        cout << answer << endl;
     }
+}
 
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    // ll t;
+    // cin>>t;
+    // while(t--)
+    solve();
+    return 0;
 }

@@ -187,33 +187,27 @@ return 1;
 
     
 void solve(){
-    
-    ll n,k;
-    cin>>n>>k;
-    ll ans=-1;
-    ll s=1;
-    ll e=2*n-1;
-    // cout<<e<<" ";cl;
-    bool flag=0;
-    // cout<<e<<" ";
-while(s<=e){
-    ll mid=s+(e-s)/2;
-    ll sn=(ll)(mid*(mid+1)/2);
+      ll n;
+    cin >> n;
 
-     if(sn<=k){
-        ans=mid;
-            cout<<sn<<" mid= "<<mid;cl;
-        if(sn==k)flag=1;
-        s=mid+1;
+    map<ll, ll> mp1, mp2;
+    vector<pair<ll,ll>> vp;
+
+    for (int i = 0; i < n; i++) {
+        ll u, v;
+        cin >> u >> v;
+        vp.push_back({u, v});
+        mp1[u]++;
+        mp2[v]++;
     }
-    else{
-        e=mid-1;
+
+    ll ans = 0;
+    for (int i = 0; i < vp.size(); i++) {
+        ans += (mp1[vp[i].first] - 1) * (mp2[vp[i].second] - 1);
     }
-}
-cout<<ans;cl;
 
-
-
+    cout << ans << " ";
+    // return 0;
 }
 int main(){
     IOS
@@ -223,7 +217,7 @@ int main(){
     #endif
     int t=1;
     // cout<<string(3,'1');
-    cin>>t;
+    // cin>>t;
     while(t--){
 
         solve();

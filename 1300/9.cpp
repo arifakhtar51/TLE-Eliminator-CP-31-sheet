@@ -125,40 +125,39 @@ int log_a_to_base_b(int a, int b)
 {
     return log2(a) / log2(b);
 }
-int Arr[100][100];
-int P[100][100];
-void computePrefixSum(int n, int m) {
-    // Calculate the prefix sum using the given formula
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < m; ++j) {
-            P[i][j] = Arr[i][j];
-            if (i > 0) P[i][j] += P[i - 1][j];
-            if (j > 0) P[i][j] += P[i][j - 1];
-            if (i > 0 && j > 0) P[i][j] -= P[i - 1][j - 1];
-        }
-    }
-}
 
-int queryRectangleSum(int U, int L, int D, int R) {
-    // Calculate the sum of values in the specified rectangle
-    int ans = P[D][R];
-    if (L > 0) ans -= P[D][L - 1];
-    if (U > 0) ans -= P[U - 1][R];
-    if (U > 0 && L > 0) ans += P[U - 1][L - 1];
-    return ans;
-}
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
 /*=================Think a bit more=============*/
 // author -arifakhtar
 
 void solve(){
-    
+
     ll n;
     cin>>n;
-    vector<ll>arr(n);
-    for(ll i=0;i<n;i++){cin>>arr[i];}
+    bool flag=0;
+    // map<vector<ll>,ll>mp;
+    vector<ll>prev,prev2;
+    int mx=n+1;
+    vector<ll>arr(mx,0);
+    for(int i=0;i<n;i++){
+        int m;cin>>m;
+        for(int j=0;j<m;j++){
+            ll x;cin>>x;
+            arr[x]=1;
+        }
+        
+            prev2=prev;
+            prev=arr;
 
+        
+    }
+    if(prev2==prev){
+        cy;
+    }
+    else{
+        cn;
+    }
 }
 int main(){
     IOS
@@ -166,14 +165,57 @@ int main(){
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
     #endif
-    int t=1;
+    // int t=1;
     // cout<<string(3,'1');
+        ll t, f, i, j, n, p;
+    string ans;
+    
     cin>>t;
-    while(t--){
-
-        solve();
-
-
+    
+    for(;t--;)
+    {
+        cin>>n;
+        
+        unordered_map<ll, ll> mp;
+        
+        ll k[n];
+        vector<ll> bits[n];
+        
+        for(i=0; i<n; i++)
+        {
+            cin>>k[i];
+            
+            for(j=0; j<k[i]; j++)
+            {
+                cin>>p;
+                if(mp.find(p)==mp.end()){
+                    mp[p]=1;
+                }else{
+                    mp[p]++;
+                }
+                bits[i].push_back(p);
+            }
+        }
+        
+        ans="NO";
+        
+        for(i=0; i<n; i++)
+        {
+            f=0;
+            for(j=0; j<k[i]; j++)
+            {
+                if(mp[bits[i][j]]==1){
+                    f++;
+                    break;
+                }
+            }
+            if(f==0){
+                ans="YES";
+                break;
+            }
+        }
+        
+        cout<<ans<<"\n";
     }
 
 }

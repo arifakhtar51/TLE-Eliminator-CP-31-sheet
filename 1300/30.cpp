@@ -125,28 +125,7 @@ int log_a_to_base_b(int a, int b)
 {
     return log2(a) / log2(b);
 }
-int Arr[100][100];
-int P[100][100];
-void computePrefixSum(int n, int m) {
-    // Calculate the prefix sum using the given formula
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < m; ++j) {
-            P[i][j] = Arr[i][j];
-            if (i > 0) P[i][j] += P[i - 1][j];
-            if (j > 0) P[i][j] += P[i][j - 1];
-            if (i > 0 && j > 0) P[i][j] -= P[i - 1][j - 1];
-        }
-    }
-}
 
-int queryRectangleSum(int U, int L, int D, int R) {
-    // Calculate the sum of values in the specified rectangle
-    int ans = P[D][R];
-    if (L > 0) ans -= P[D][L - 1];
-    if (U > 0) ans -= P[U - 1][R];
-    if (U > 0 && L > 0) ans += P[U - 1][L - 1];
-    return ans;
-}
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
 /*=================Think a bit more=============*/
@@ -154,10 +133,24 @@ int queryRectangleSum(int U, int L, int D, int R) {
 
 void solve(){
     
-    ll n;
-    cin>>n;
+    ll n,k;
+    cin>>n>>k;
     vector<ll>arr(n);
     for(ll i=0;i<n;i++){cin>>arr[i];}
+    auto v=prefixSum(arr);
+    ll l=0,r=n-k;
+    long long sm=0;
+    while(r<n){
+        if(l==0)sm+=v[r];
+        else{
+            sm+=v[r]-v[l-1];
+        }
+        l++,r++;
+
+    }
+    double ans=(double)sm/(n-k+1);
+      cout << fixed << setprecision(10);
+    cout<<ans;cl;
 
 }
 int main(){
@@ -168,7 +161,7 @@ int main(){
     #endif
     int t=1;
     // cout<<string(3,'1');
-    cin>>t;
+    // cin>>t;
     while(t--){
 
         solve();

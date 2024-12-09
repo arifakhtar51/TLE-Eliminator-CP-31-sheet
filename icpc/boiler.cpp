@@ -170,6 +170,23 @@ int log_a_to_base_b(int a, int b)
 {
     return log2(a) / log2(b);
 }
+    bool checkIden(vll arr,vll brr,ll ele){
+        ll cnt=0;
+        ll i=0,j=0;
+        ll n=arr.size();
+        ll m=brr.size();
+        while(i<j && j<m){
+            if(abs(arr[i]-arr[j])==ele){
+                i++,j++;
+            }
+            else{
+                cnt++;
+                i++;
+            }
+        }
+        if(cnt>2)return 0;
+        return 1;
+    }
 
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
@@ -188,31 +205,10 @@ return 1;
     
 void solve(){
     
-    ll n,k;
-    cin>>n>>k;
-    ll ans=-1;
-    ll s=1;
-    ll e=2*n-1;
-    // cout<<e<<" ";cl;
-    bool flag=0;
-    // cout<<e<<" ";
-while(s<=e){
-    ll mid=s+(e-s)/2;
-    ll sn=(ll)(mid*(mid+1)/2);
-
-     if(sn<=k){
-        ans=mid;
-            cout<<sn<<" mid= "<<mid;cl;
-        if(sn==k)flag=1;
-        s=mid+1;
-    }
-    else{
-        e=mid-1;
-    }
-}
-cout<<ans;cl;
-
-
+    ll n;
+    cin>>n;
+    vector<ll>arr(n);
+    for(ll i=0;i<n;i++){cin>>arr[i];}
 
 }
 int main(){
