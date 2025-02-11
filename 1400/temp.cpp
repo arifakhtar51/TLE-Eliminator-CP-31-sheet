@@ -1,3 +1,78 @@
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// void solve(){
+//     int n,k;
+//     cin>>n>>k;
+//     if(k>n){
+        
+//         cout<<"NO";
+//     }
+//     else{
+//         cout<<"YES";
+//     }
+//     cout<<endl;
+    
+
+// }
+
+// 	// your code goes here
+// int main() {
+//     int n=5;
+//     cout<<"Enter A Number"<<" ";
+//     cin>>n;
+//     int m=(n+2)/2;
+//     int x=n+2;
+//     for(int i=0;i<n+2;i++){
+//         for(int j=0;j<n*3+2;j++){
+//             if(i>m){
+//                 if(j==0||j==3*n+1)cout<<"e";
+//                 else cout<<" ";
+//                 continue;
+//             }
+//             if(i==m){
+//                 cout<<"e";
+//                 for(int i=0;i<n;i++)cout<<"*";
+//                 for(int l=0;l<n;l++)cout<<"e";
+//                 for(int i=0;i<n;i++)cout<<"*";
+//                 cout<<"e";
+//                 break;
+//             }
+//             if(j==0||j==n*3+1){
+//                 cout<<"e";continue;
+//             }
+//             if(i==0){
+//                 cout<<" ";continue;
+//             }
+//             if(i>0){
+//                 int temp=(3*n+1)/2;//ceil val
+//                 temp=temp-i;
+//                 if(j>temp){
+//                     for(int k=0;k<2*(i-1)+1;k++){
+//                         cout<<"e";
+//                     }
+//                     j+=2*(i-1);
+//                     for(int k=j+1;k<n*3+2;k++){
+//                         if(k==3*n+1){
+//                             cout<<"e";
+//                         }
+//                         else
+//                         cout<<" ";
+//                     }
+//                     j=n*3+2;
+//                 }
+//                 else cout<<" ";
+//             }
+//             else{
+//                 cout<<" ";
+//             }
+//         }
+//         cout<<endl;
+//     }
+        
+//     return 0;
+// }
+
 #include<bits/stdc++.h>
 #define ll long long
 using namespace std;
@@ -125,7 +200,28 @@ int log_a_to_base_b(int a, int b)
 {
     return log2(a) / log2(b);
 }
+int Arr[100][100];
+int P[100][100];
+void computePrefixSum(int n, int m) {
+    // Calculate the prefix sum using the given formula
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            P[i][j] = Arr[i][j];
+            if (i > 0) P[i][j] += P[i - 1][j];
+            if (j > 0) P[i][j] += P[i][j - 1];
+            if (i > 0 && j > 0) P[i][j] -= P[i - 1][j - 1];
+        }
+    }
+}
 
+int queryRectangleSum(int U, int L, int D, int R) {
+    // Calculate the sum of values in the specified rectangle
+    int ans = P[D][R];
+    if (L > 0) ans -= P[D][L - 1];
+    if (U > 0) ans -= P[U - 1][R];
+    if (U > 0 && L > 0) ans += P[U - 1][L - 1];
+    return ans;
+}
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
 /*=================Think a bit more=============*/
@@ -133,38 +229,43 @@ int log_a_to_base_b(int a, int b)
 
 void solve(){
     
-    ll n,q;
-    cin>>n>>q;
-    vector<ll>arr(n+1);
-    for(ll i=1;i<=n;i++){cin>>arr[i];}
-    vector<ll>temp(n+1,0);
-    temp[1]=arr[1];
-    int mod=1e9+7;
-    for(ll i=2;i<=n;i++){
-        temp[i]=(ll)arr[i]*(i);
-        temp[i]=(temp[i]+mod)%mod;
-    }
-    for(ll i=2;i<=n;i++){
-        temp[i]=(temp[i-1]+temp[i]+mod)%mod;
-    }
-    for(int i=1;i<=n;i++){
-        arr[i]=(arr[i]+arr[i-1]+mod)%mod;
-    }
-    while (q--) {
-        ll l, r;
-        cin >> l >> r;
+    ll n;
+    cin>>n;
 
-        ll sm1 = (l == 1) ? arr[r]*(l-1)%mod : ((arr[r] - arr[l - 1] + mod) % mod) * (l - 1) % mod;
-        ll sm2 = (l == 1) ? temp[r] : (temp[r] - temp[l - 1] + mod) % mod;
-        // printarr(temp);cl;
-        // printarr(arr);cl;
-        // cout<<sm1<<" "<<sm2<<" ";cl;
-        // Normalize output
-        ll result = (sm2 - sm1 + mod) % mod;
-        cout << result << endl;
+    vector<ll>arr(n,0);
+    for(int i=0;i<n;i++)cin>>arr[i];
+    int d=0;
+    ll sm=accumulate(begin(arr),end(arr),0LL);
+    srt(arr);
+    cin>>d;
+    while(d--){
+        ll x,y;
+        cin>>x>>y;
+        ll s=0,e=1e18;
+        ll ans=1e18;
+        while(s<=e){
+            ll mid=(s+e)/2LL;
+            ll reqTot=sm+mid-y;
+            ll low=lower_bound(begin(arr),end(arr),reqTot)-begin(arr);
+            if(low>=n)low--;
+            ll extra=0;
+            reqTot-=arr[low];
+            extra=min(mid,reqTot);
+            ll temp=arr[low]+extra;
+            if(temp>=x && sm+mid-temp>=y){
+                ans=min(ans,mid);
+                e=mid-1;
+            }
+            else {
+                s=mid+1;
+            }
+            
+        }
+        cout<<ans<<"\n";
     }
 
-
+    
+    
 }
 int main(){
     IOS
@@ -173,13 +274,15 @@ int main(){
     freopen("output.txt","w",stdout);
     #endif
     int t=1;
+    // ll x=937481864;
+    // cout<<x%(1000000007);
     // cout<<string(3,'1');
     // cin>>t;
     while(t--){
-
         solve();
-
-
     }
+    
+    
 
 }
+

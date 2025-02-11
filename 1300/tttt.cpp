@@ -82,8 +82,102 @@ long long Solution::inverseArray[Solution::ARRAY_SIZE];
 
 // Main function for demonstrational purpose
 int main() {
-    Solution solver;
-    string s = "aabb";
-    cout << solver.countGoodSubsequences(s) << endl;
+    int n=13;
+    int m=(n+2)/2;
+    int x=n+2;
+    for(int i=0;i<n+2;i++){
+        for(int j=0;j<n*3+2;j++){
+            if(i>m){
+                if(j==0||j==3*n+1)cout<<"e";
+                else cout<<" ";
+                continue;
+            }
+            if(i==m){
+                cout<<"e";
+                for(int i=0;i<n;i++)cout<<"*";
+                for(int l=0;l<n;l++)cout<<"e";
+                for(int i=0;i<n;i++)cout<<"*";
+                cout<<"e";
+                break;
+            }
+            if(j==0||j==n*3+1){
+                cout<<"e";continue;
+            }
+            if(i==0){
+                cout<<" ";continue;
+            }
+            if(i>0){
+                int temp=(3*n+1)/2;//ceil val
+                temp=temp-i;
+                if(j>temp){
+                    for(int k=0;k<2*(i-1)+1;k++){
+                        cout<<"e";
+                    }
+                    j+=2*(i-1);
+                    for(int k=j+1;k<n*3+2;k++){
+                        if(k==3*n+1){
+                            cout<<"e";
+                        }
+                        else
+                        cout<<" ";
+                    }
+                    j=n*3+2;
+                }
+                else cout<<" ";
+            }
+            else{
+                cout<<" ";
+            }
+        }
+        cout<<endl;
+    }
+        
     return 0;
 }
+// for(int j=0;j<=x-i;j++){
+//             if(j==0){
+//                 cout<<"e";
+//             }
+//             else{
+//                 cout<<" ";
+//             }
+//         }
+//         if(i!=0)
+//         for(int k=0;k<2*(i-1)+1;k++){
+//             cout<<"e";
+//         }
+//         for(int j=x+1+i;j<3*n;j++){
+//             if(j==3*n-1)cout<<"e";
+//             else cout<<" ";
+//         }
+//         cout<<endl;
+//     }
+//     for(int i=0;i<=n;i++){
+//         if(i==0){
+//             cout<<"e";
+//         }else
+//             cout<<"*";
+//     }
+
+//         for(int i=0;i<n;i++){
+            
+//             cout<<"e";
+            
+//         }
+//         for(int i=0;i<=n;i++){
+//             if(i==n)cout<<"e";
+//             else
+//             cout<<"*";
+//         }
+//         cout<<endl;
+//     for(int i=0;i<m;i++){
+//             for(int j=0;j<=3*n;j++){
+//                 if(j==0||j==3*n){
+//                     cout<<"e";
+//                 }
+//                 else{
+//                     cout<<" ";
+//                 }
+//             }
+//             cout<<endl;
+//         }

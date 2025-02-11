@@ -125,7 +125,28 @@ int log_a_to_base_b(int a, int b)
 {
     return log2(a) / log2(b);
 }
+int Arr[100][100];
+int P[100][100];
+void computePrefixSum(int n, int m) {
+    // Calculate the prefix sum using the given formula
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            P[i][j] = Arr[i][j];
+            if (i > 0) P[i][j] += P[i - 1][j];
+            if (j > 0) P[i][j] += P[i][j - 1];
+            if (i > 0 && j > 0) P[i][j] -= P[i - 1][j - 1];
+        }
+    }
+}
 
+int queryRectangleSum(int U, int L, int D, int R) {
+    // Calculate the sum of values in the specified rectangle
+    int ans = P[D][R];
+    if (L > 0) ans -= P[D][L - 1];
+    if (U > 0) ans -= P[U - 1][R];
+    if (U > 0 && L > 0) ans += P[U - 1][L - 1];
+    return ans;
+}
 /* ===============BoilerPlate code end=========== */
 /*====================You can Do it man!!====================*/
 /*=================Think a bit more=============*/
@@ -133,38 +154,37 @@ int log_a_to_base_b(int a, int b)
 
 void solve(){
     
-    ll n,q;
-    cin>>n>>q;
-    vector<ll>arr(n+1);
-    for(ll i=1;i<=n;i++){cin>>arr[i];}
-    vector<ll>temp(n+1,0);
-    temp[1]=arr[1];
-    int mod=1e9+7;
-    for(ll i=2;i<=n;i++){
-        temp[i]=(ll)arr[i]*(i);
-        temp[i]=(temp[i]+mod)%mod;
+    ll n,m;
+    cin>>n>>m;
+    vector<ll>arr(n);
+    for(ll i=0;i<n;i++){cin>>arr[i];}
+    ll tot=0;
+    vector<ll>temp;
+    for(auto i:arr){
+        string s=to_string(i);
+        // cout<<s<<" ";
+        tot+=s.size();
+        ll cnt=0;
+        for(int j=s.size()-1;j>=0;j--){
+            if(s[j]=='0')cnt++;
+            else break;
+        }
+        if(cnt){
+            temp.push_back(cnt);
+        }
     }
-    for(ll i=2;i<=n;i++){
-        temp[i]=(temp[i-1]+temp[i]+mod)%mod;
+    srt(temp);
+    rev(temp);
+    // printarr(temp);cl;
+    for(int i=0;i<temp.size();i+=2){
+        tot-=temp[i];
     }
-    for(int i=1;i<=n;i++){
-        arr[i]=(arr[i]+arr[i-1]+mod)%mod;
+    if(tot-1>=m){
+        cout<<"Sasha";cl;
     }
-    while (q--) {
-        ll l, r;
-        cin >> l >> r;
-
-        ll sm1 = (l == 1) ? arr[r]*(l-1)%mod : ((arr[r] - arr[l - 1] + mod) % mod) * (l - 1) % mod;
-        ll sm2 = (l == 1) ? temp[r] : (temp[r] - temp[l - 1] + mod) % mod;
-        // printarr(temp);cl;
-        // printarr(arr);cl;
-        // cout<<sm1<<" "<<sm2<<" ";cl;
-        // Normalize output
-        ll result = (sm2 - sm1 + mod) % mod;
-        cout << result << endl;
+    else{
+        cout<<"Anna";cl;
     }
-
-
 }
 int main(){
     IOS
@@ -174,7 +194,7 @@ int main(){
     #endif
     int t=1;
     // cout<<string(3,'1');
-    // cin>>t;
+    cin>>t;
     while(t--){
 
         solve();
