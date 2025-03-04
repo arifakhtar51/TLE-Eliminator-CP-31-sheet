@@ -152,53 +152,37 @@ int queryRectangleSum(int U, int L, int D, int R) {
 /*=================Think a bit more=============*/
 // author -arifakhtar
 
+
 void solve(){
     
-    ll n,x;
-    cin>>n>>x;
-    if(n==1){
-        cout<<x;cl;return ;
-    }
-    
-        cout<<0<<" ";
-        if(n==2){
-            cout<<x<<" ";cl ; 
-            return ;
-        }
-        int cnt=1;
-        int l=-1;
-        ll prev=0;
-        for(int i=1;i<n-1;i++){
-            if(i&x){
-                cout<<i<<" ";
-                cnt++;
-                prev|=i;
-            }
-            else{
-                l=i;
-                break;
-            }
-        }
-        if(l==-1){
-            // no ele need to process expet 1
-            prev=prev|(n-1);
-            if(prev==x){
-                cout<<n-1<<" ";
-
-            }
-            else{
-                cout<<x<<" ";
-            }
+    ll n;
+    cin>>n;
+    // vector<ll>arr(n,0);
+    vector<vector<int>>arr(n,vector<int>(0));
+    map<int,int>mp;
+    for(ll i=0;i<n;i++){
+        ll ele;
+        cin>>ele;
+        if(ele!=-1){
+            arr[ele-1].push_back(i);
         }
         else{
-            while(cnt<n){
-                cout<<x<<" ";
-                cnt++;
-            }
+            mp[i]=1;
         }
-    
-        
-        cl;
+    }
+    // map<int,int>mp;
+    ll ans=0;
+    auto dfs = [&](auto self, int u, int lev) -> void {
+        ans = max(ans, lev*1LL);
+        for (auto& v : arr[u]) {
+            self(self,v,lev+1);
+        }
+    };
+
+    for (auto &i:mp) {
+        dfs(dfs,i.first,1);
+    }
+    cout<<ans;
     
     
 }
@@ -210,7 +194,7 @@ int main(){
     #endif
     int t=1;
     // cout<<string(3,'1');
-    cin>>t;
+    // cin>>t;
     while(t--){
 
         solve();

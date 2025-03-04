@@ -154,51 +154,24 @@ int queryRectangleSum(int U, int L, int D, int R) {
 
 void solve(){
     
-    ll n,x;
-    cin>>n>>x;
-    if(n==1){
-        cout<<x;cl;return ;
+    ll n;
+    cin>>n;
+    string s;
+    cin>>s;
+    if(n<3){
+        cout<<0;cl;return ;
+    }
+    int cnt1=0,cnt2=0;
+    for(auto i:s){
+        if(i=='-')cnt1++;
+        else cnt2++;
+    }
+    if(cnt1<2||cnt2<=0){
+        cout<<0;cl;return ;
     }
     
-        cout<<0<<" ";
-        if(n==2){
-            cout<<x<<" ";cl ; 
-            return ;
-        }
-        int cnt=1;
-        int l=-1;
-        ll prev=0;
-        for(int i=1;i<n-1;i++){
-            if(i&x){
-                cout<<i<<" ";
-                cnt++;
-                prev|=i;
-            }
-            else{
-                l=i;
-                break;
-            }
-        }
-        if(l==-1){
-            // no ele need to process expet 1
-            prev=prev|(n-1);
-            if(prev==x){
-                cout<<n-1<<" ";
+    cout<<(long long)((cnt1+2-1)/2)*(cnt1/2)*cnt2;cl;
 
-            }
-            else{
-                cout<<x<<" ";
-            }
-        }
-        else{
-            while(cnt<n){
-                cout<<x<<" ";
-                cnt++;
-            }
-        }
-    
-        
-        cl;
     
     
 }

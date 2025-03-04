@@ -154,52 +154,30 @@ int queryRectangleSum(int U, int L, int D, int R) {
 
 void solve(){
     
-    ll n,x;
-    cin>>n>>x;
-    if(n==1){
-        cout<<x;cl;return ;
-    }
+    string s;
+    cin>>s;
+    ll hr, min;
+    char colon;
+    stringstream ss(s);
+    ss >> hr >> colon >> min;
     
-        cout<<0<<" ";
-        if(n==2){
-            cout<<x<<" ";cl ; 
-            return ;
-        }
-        int cnt=1;
-        int l=-1;
-        ll prev=0;
-        for(int i=1;i<n-1;i++){
-            if(i&x){
-                cout<<i<<" ";
-                cnt++;
-                prev|=i;
-            }
-            else{
-                l=i;
-                break;
-            }
-        }
-        if(l==-1){
-            // no ele need to process expet 1
-            prev=prev|(n-1);
-            if(prev==x){
-                cout<<n-1<<" ";
+    string AMorPm ="";
+    if(hr<12){
+        AMorPm="AM";
 
-            }
-            else{
-                cout<<x<<" ";
-            }
-        }
-        else{
-            while(cnt<n){
-                cout<<x<<" ";
-                cnt++;
-            }
-        }
+    }
+    else{
+        AMorPm="PM";
+    }
+    if (hr == 0) hr = 12;
+    else if (hr > 12) hr -= 12; 
     
-        
-        cl;
+    stringstream ans;
+    ans<<(hr < 10 ?"0":"")<< hr << ":";
+    ans << (min< 10 ? "0" : "") << min << " " << AMorPm;
     
+    cout<< ans.str();
+    cl;return ;
     
 }
 int main(){
