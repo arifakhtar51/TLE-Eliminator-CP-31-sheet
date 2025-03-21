@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
+#include<bits/stdc++.h>
 using namespace std;
 
 bool isPossible(int T, vector<int>& house, int d) {
@@ -65,7 +65,11 @@ void fun(int x,int y){
     g(y);
 }
 int main() {
-     fun(f(10),g(20));
+    //  fun(f(10),g(20));
+    // phle 20 wala
+    // cout<<
+    int a=log2(2)+1;
+    cout<<a;
 
     return 0;
 }
